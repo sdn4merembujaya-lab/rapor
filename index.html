@@ -241,7 +241,72 @@ body.locked #lg{display:flex}
 #lgpd .fl{margin-bottom:10px}
 #lgpe{min-height:18px;font-size:13px;color:var(--wr);margin:0 0 4px}
 @media print{#lg,#lgpd{display:none!important}}
+
+/* ===== Latar ungu bergaya ilustrasi + dashboard grafik ===== */
+@media screen{
+#bgd{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;background:linear-gradient(135deg,#4c1d95 0%,#6d28d9 36%,#9333ea 66%,#d08cff 100%)}
+#bgd svg{position:absolute;inset:0;width:100%;height:100%}
+#bgd .fl1{animation:bgfl 16s ease-in-out infinite alternate}
+#bgd .fl2{animation:bgfl 22s ease-in-out infinite alternate-reverse}
+@keyframes bgfl{to{transform:translateY(-14px)}}
+body.locked #bgd{display:none}
+body{background:#4c1d95!important}
+#side{background:linear-gradient(180deg,rgba(22,8,76,.9),rgba(14,5,52,.92))!important;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.top{background:rgba(44,16,116,.62)!important;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.14)!important}
+.card,.card.stat,.stat.s1,.stat.s2,.stat.s3{background:rgba(36,14,104,.58);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.16)}
+.hero{background:linear-gradient(120deg,#7c3aed 0%,#c026d3 58%,#fb7185 100%)!important;border:1px solid rgba(255,255,255,.28)!important}
+.hero::after{background:radial-gradient(circle,rgba(251,191,36,.45),transparent 65%)!important}
+.gr{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:16px;margin-bottom:16px;align-items:start}
+.gr .card{margin-bottom:0}
+.ghd{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px}
+.ghd h2{margin:0!important}
+.chip{display:inline-flex;gap:6px;align-items:center;padding:4px 11px;border-radius:99px;font-size:12.5px;color:#fff;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2)}
+.chip b{color:#fde68a}
+.srl{max-height:430px;overflow:auto;padding-right:4px;scrollbar-width:thin}
+.sr{display:grid;grid-template-columns:38px minmax(0,1fr) 52px;gap:11px;align-items:center;padding:7px 8px;border-radius:12px;cursor:pointer;transition:background .15s}
+.sr:hover,.sr:focus-visible{background:rgba(255,255,255,.1);outline:0}
+.av{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:15px;color:#fff;box-shadow:0 4px 10px rgba(0,0,0,.3);border:2px solid rgba(255,255,255,.45)}
+.sn{font-size:14px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:5px}
+.sn small{font-weight:400;color:#d9c9ff;margin-left:6px}
+.tk{height:10px;border-radius:99px;background:rgba(0,0,0,.32);overflow:hidden}
+.tk span{display:block;height:100%;border-radius:inherit;box-shadow:0 0 10px rgba(255,255,255,.25)}
+.sc{text-align:right;font-weight:700;font-size:16px;color:#fff}
+.cc{display:flex;align-items:stretch;gap:10px;height:270px;overflow-x:auto;padding-top:6px;scrollbar-width:thin}
+.ccol{flex:1 0 58px;display:flex;flex-direction:column;align-items:center}
+.cv{font-size:12.5px;font-weight:700;color:#fff;margin-bottom:4px;min-height:18px}
+.cbw{flex:1;width:100%;display:flex;align-items:flex-end;justify-content:center;border-bottom:1px solid rgba(255,255,255,.25)}
+.cb{width:68%;max-width:40px;min-height:3px;border-radius:11px 11px 3px 3px;box-shadow:0 6px 14px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.4)}
+.cl{font-size:11px;line-height:1.25;text-align:center;color:#e5d9ff;margin-top:7px;height:30px;overflow:hidden;word-break:break-word}
+.gnone{padding:26px 8px;text-align:center;color:#e5d9ff}
+@media(max-width:900px){.gr{grid-template-columns:1fr}}
+}
+@media print{#bgd{display:none!important}}
 </style></head><body class="locked">
+<div id="bgd" aria-hidden="true"><svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="gw1" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c084fc" stop-opacity=".55"/><stop offset="1" stop-color="#f0abfc" stop-opacity=".35"/></linearGradient>
+<linearGradient id="gw2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7e22ce" stop-opacity=".55"/><stop offset="1" stop-color="#d946ef" stop-opacity=".3"/></linearGradient>
+<linearGradient id="gd" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbbf24"/><stop offset="1" stop-color="#f472b6"/></linearGradient>
+<radialGradient id="gh" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+</defs>
+<circle cx="1230" cy="110" r="230" fill="url(#gh)"/>
+<circle cx="170" cy="140" r="120" fill="#fff" opacity=".07"/>
+<circle cx="170" cy="140" r="70" fill="#fff" opacity=".09"/>
+<g class="fl1"><circle cx="1320" cy="250" r="34" fill="#fff" opacity=".18"/><circle cx="1320" cy="250" r="16" fill="#fff" opacity=".22"/>
+<circle cx="520" cy="90" r="22" fill="#fff" opacity=".14"/><circle cx="880" cy="170" r="12" fill="#fff" opacity=".2"/></g>
+<g class="fl2"><circle cx="90" cy="520" r="26" fill="#fff" opacity=".12"/><circle cx="1180" cy="520" r="52" fill="#fff" opacity=".07"/><circle cx="700" cy="330" r="9" fill="#fff" opacity=".22"/></g>
+<path d="M1230 110 V210 H1120" fill="none" stroke="#fff" stroke-opacity=".22" stroke-width="2"/>
+<path d="M170 320 V400 H300" fill="none" stroke="#fff" stroke-opacity=".2" stroke-width="2"/>
+<g class="fl1"><circle cx="1230" cy="110" r="30" fill="url(#gd)"/><path d="M1230 98a8 8 0 00-8 8c0 6 8 15 8 15s8-9 8-15a8 8 0 00-8-8z" fill="#5b21b6" opacity=".85"/>
+<circle cx="170" cy="320" r="30" fill="url(#gd)"/><path d="M158 320l8 8 14-16" fill="none" stroke="#5b21b6" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/></g>
+<g opacity=".11" fill="#fff"><rect x="1010" y="590" width="230" height="170" rx="16"/><rect x="60" y="640" width="210" height="130" rx="16"/></g>
+<g opacity=".2" fill="#fff"><rect x="1032" y="614" width="150" height="9" rx="4.5"/><rect x="1032" y="636" width="180" height="9" rx="4.5"/><rect x="1032" y="658" width="120" height="9" rx="4.5"/>
+<rect x="82" y="664" width="130" height="9" rx="4.5"/><rect x="82" y="686" width="160" height="9" rx="4.5"/></g>
+<path class="fl2" d="M0 700 C 200 600, 380 640, 560 700 S 940 800, 1180 690 S 1380 640, 1440 680 V900 H0 Z" fill="url(#gw1)"/>
+<path d="M0 790 C 240 710, 460 780, 700 810 S 1160 850, 1440 760 V900 H0 Z" fill="url(#gw2)"/>
+<path d="M0 850 C 300 810, 600 880, 900 850 S 1300 820, 1440 850 V900 H0 Z" fill="#fff" opacity=".1"/>
+</svg></div>
+
 <div id="lg" role="dialog" aria-labelledby="lgh">
 <div class="lgbg"><i></i><i></i><i></i></div>
 <div class="lgcol">
@@ -457,6 +522,28 @@ p3.insertBefore(last,ref);ref=last}
 if(p3){const c=p3.children[2];if(c&&c.classList.contains('gap'))c.remove();const l3=[...p3.children].filter(e=>!e.classList.contains('ft')).pop();if(bot(l3,p3)>lim)warn=true}});
 if(W&&warn)W.textContent='Isi rapor sangat panjang dan masih melewati batas halaman. Pilih jarak Rapat, kecilkan margin, atau kecilkan ruang aman bawah.'}
 function draw(){if(tab!='siswa')editId=null;applyPaper();nav();$('#app').innerHTML=V[tab]();if(tab=='cetak')fitPages();window.scrollTo(0,0)}
+
+/* ===== Dashboard: nama siswa + grafik nilai ===== */
+(function(){
+const PAL=[['#22d3ee','#3b82f6'],['#f472b6','#a855f7'],['#fbbf24','#f97316'],['#34d399','#14b8a6'],['#a78bfa','#6366f1'],['#fb7185','#f43f5e'],['#60a5fa','#22d3ee']];
+const g=(i,a)=>`linear-gradient(${a||'90deg'},${PAL[i%7][0]},${PAL[i%7][1]})`;
+const avg=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:null;
+const _h=V.home;
+V.home=function(){
+ const html=_h(),ss=kelasSiswa(),L=mapelList();
+ if(!ss.length)return html;
+ const vals=(s)=>L.map(m=>parseFloat((D(s).n[m]||{}).v)).filter(x=>!isNaN(x));
+ const rows=ss.map((s,i)=>({s,i,n:vals(s).length,r:avg(vals(s))}));
+ rows.sort((a,b)=>(b.r==null)-(a.r==null)||(b.r||0)-(a.r||0)||a.i-b.i);
+ const ada=rows.filter(r=>r.r!=null),kls=avg(ada.map(r=>r.r)),top=ada[0];
+ const sr=rows.map((r,k)=>{const w=r.r==null?0:Math.max(0,Math.min(100,r.r));
+  return `<div class="sr" tabindex="0" role="button" onclick="sel='${esc(r.s.id)}';tab='nilai';draw()" onkeydown="if(event.key==='Enter'){sel='${esc(r.s.id)}';tab='nilai';draw()}"><span class="av" style="background:${g(r.i,'135deg')}">${esc((r.s.nama.trim()[0]||'?').toUpperCase())}</span><div style="min-width:0"><div class="sn">${esc(r.s.nama)}<small>${r.n}/${L.length} mapel</small></div><div class="tk"><span style="width:${w}%;background:${g(r.i)}"></span></div></div><div class="sc">${r.r==null?'-':r.r.toFixed(1)}</div></div>`}).join('');
+ const mv=L.map((m,i)=>{const a=[];ss.forEach(s=>{const x=parseFloat((D(s).n[m]||{}).v);if(!isNaN(x))a.push(x)});return{m:m.split('|').pop(),r:avg(a),i}});
+ const cc=mv.map(x=>{const h=x.r==null?0:Math.max(0,Math.min(100,x.r));return `<div class="ccol"><div class="cv">${x.r==null?'':x.r.toFixed(0)}</div><div class="cbw"><div class="cb" style="height:${h}%;background:${g(x.i,'180deg')}"></div></div><div class="cl" title="${esc(x.m)}">${esc(x.m.length>16?x.m.slice(0,15)+'…':x.m)}</div></div>`}).join('');
+ const card=`<div class="gr"><div class="card"><div class="ghd"><h2>Peserta didik dan rata-rata nilai</h2><span class="chip">${ss.length} siswa</span></div>${ada.length?`<div class="ghd" style="margin-top:-4px"><span class="chip">Rata-rata kelas <b>${kls.toFixed(1)}</b></span><span class="chip">Tertinggi <b>${esc(top.s.nama.split(' ')[0])} ${top.r.toFixed(1)}</b></span></div>`:''}<div class="srl">${sr}</div>${ada.length?'':'<p class="hint" style="margin:10px 0 0">Nilai belum diisi. Grafik akan muncul setelah nilai akhir terisi.</p>'}</div><div class="card"><div class="ghd"><h2>Rata-rata nilai per mata pelajaran</h2></div>${mv.some(x=>x.r!=null)?`<div class="cc">${cc}</div>`:'<div class="gnone">Belum ada nilai akhir yang terisi.</div>'}</div></div>`;
+ return html.replace('<div class="dash">',card+'<div class="dash">');
+};
+})();
 /* ===== Login dan akun ===== */
 TABS.push(['guru','12. Kelola Guru']);
 IC.guru='<circle cx="12" cy="8" r="3.5"/><path d="M5 21a7 7 0 0114 0M19 8v6M22 11h-6"/>';
