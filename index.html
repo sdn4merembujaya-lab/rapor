@@ -3,9 +3,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>e-Rapor SD - Aplikasi Rapor Kurikulum Merdeka</title>
 <meta name="description" content="Aplikasi rapor SD Kurikulum Merdeka: input nilai, capaian otomatis, legger, cetak A4/F4. Berjalan di peramban, data tersimpan di perangkat.">
-<meta name="theme-color" content="#0f3f37">
+<meta name="theme-color" content="#0d0a3d">
 <meta property="og:title" content="e-Rapor SD"><meta property="og:description" content="Aplikasi rapor SD Kurikulum Merdeka yang berjalan di peramban.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f3f37'/%3E%3Ctext x='32' y='45' font-size='38' font-family='Georgia,serif' font-weight='700' text-anchor='middle' fill='%23e9b44c'%3Ee%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2314106b'/%3E%3Ctext x='32' y='45' font-size='38' font-family='Georgia,serif' font-weight='700' text-anchor='middle' fill='%23a78bfa'%3Ee%3C/text%3E%3C/svg%3E">
 <style>
 :root{--bg:#f3f5f2;--sf:#fff;--tx:#17302b;--mu:#5b6f6a;--ac:#0f5c4d;--ac2:#e6f0ec;--bd:#d3dcd8;--wr:#a33a2a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101a18;--sf:#182623;--tx:#e4eeea;--mu:#93a8a2;--ac:#5fc4a8;--ac2:#1f3732;--bd:#2c4140;--wr:#ee8f7e}}
@@ -106,8 +106,77 @@ ol.flow{list-style:none;margin:0;padding:0;counter-reset:f;display:grid;gap:2px}
 ol.flow li{counter-increment:f;position:relative;padding:9px 10px 9px 44px;border-radius:8px;line-height:1.5}
 ol.flow li:hover{background:var(--ac2)}
 ol.flow li::before{content:counter(f);position:absolute;left:8px;top:8px;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font:700 13px Georgia,serif;background:var(--ac2);color:var(--ac)}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
-@media(max-width:760px){main{padding:14px}.hero{padding:18px}.hero h2{font-size:22px}#side button.on{box-shadow:none;background:var(--am);color:#0a2c27}}
+
+body{background:radial-gradient(1100px 480px at 88% -8%,color-mix(in srgb,var(--ac) 11%,transparent),transparent 62%),var(--bg);background-attachment:fixed}
+#side button svg{width:18px;height:18px}
+#side::after{content:"Data tersimpan di perangkat ini";margin:auto 16px 0;padding-top:14px;border-top:1px solid rgba(255,255,255,.1);font-size:12px;line-height:1.4;color:#7fa59c}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:center;position:relative;overflow:hidden;padding:30px 32px;animation:rise .5s ease both}
+.hero::after{content:"";position:absolute;right:-70px;top:-90px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(233,180,76,.3),transparent 65%);pointer-events:none}
+.hero .art{width:190px;height:auto;position:relative;z-index:1;filter:drop-shadow(0 10px 16px rgba(0,0,0,.25))}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.stat .ic{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;margin-bottom:14px;color:var(--ac);background:color-mix(in srgb,currentColor 12%,transparent)}
+.stat.s3 .ic{color:var(--amx)}
+.stat .ic svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.bar{height:7px;border-radius:99px;margin-top:12px;overflow:hidden;background:color-mix(in srgb,currentColor 16%,transparent)}
+.bar span{display:block;height:100%;border-radius:inherit;background:currentColor}
+ol.flow li{cursor:pointer;padding-right:60px;transition:background .15s}
+ol.flow li::after{content:"Buka";position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:12.5px;font-weight:600;color:var(--ac);opacity:0;transition:opacity .15s}
+ol.flow li:hover::after,ol.flow li:focus-visible::after{opacity:1}
+ol.flow li:focus-visible{outline:2px solid var(--ac);outline-offset:-2px}
+ol.flow li:hover::before{background:var(--ac);color:var(--sf)}
+
+:root:root:root{--bg:#0d0a3d;--sf:#17126a;--tx:#f1f0ff;--mu:#a9a7e0;--ac:#a78bfa;--ac2:#241d86;--bd:#3a3aa6;--wr:#ff9d8a;--am:#a78bfa;--am2:rgba(249,115,22,.16);--amx:#fdba74;--sh:0 12px 32px -20px rgba(0,0,0,.7);color-scheme:dark}
+html{scrollbar-color:#4a47b8 transparent}
+body{background:radial-gradient(900px 520px at 92% -8%,rgba(139,92,246,.32),transparent 60%),radial-gradient(700px 480px at -8% 108%,rgba(34,211,238,.12),transparent 60%),linear-gradient(160deg,#0d0a3d 0%,#15106b 55%,#1b1080 100%);background-attachment:fixed}
+.card h2,.top h1,.hero h2,.brand,.card.stat h2{font-family:"Segoe UI",system-ui,-apple-system,Roboto,sans-serif;font-weight:700;color:var(--tx)}
+.top h1{font-size:19px}.card h2{font-size:16px}.hero h2{font-size:26px;color:#fff}
+#side{background:linear-gradient(180deg,#0b0845,#07052e);border-right:1px solid rgba(139,92,246,.25)}
+.brand{color:#fff}
+.brand i{background:linear-gradient(135deg,#22d3ee,#8b5cf6);color:#fff;font-family:inherit;font-weight:800}
+.grp{color:#8b88d6}
+#side button{color:#c8c6f5}
+#side button:hover{background:rgba(139,92,246,.16);color:#fff}
+#side button.on{background:linear-gradient(90deg,rgba(139,92,246,.5),rgba(99,102,241,.18));color:#fff;box-shadow:inset 3px 0 0 #a78bfa}
+#side::after{color:#8b88d6;border-top-color:rgba(139,92,246,.25)}
+.top{background:rgba(13,10,61,.82);border-bottom:1px solid var(--bd);box-shadow:none}
+.card{background:rgba(24,19,110,.78);border:1px solid var(--bd);border-radius:14px;box-shadow:var(--sh)}
+details.card>summary{color:var(--tx)}
+input,select,textarea{background:rgba(8,6,50,.65);border-color:var(--bd);color:var(--tx)}
+input::placeholder,textarea::placeholder{color:#7c79c4}
+input:focus,select:focus,textarea:focus{border-color:#a78bfa;box-shadow:0 0 0 3px rgba(167,139,250,.28)}
+.btn{background:linear-gradient(135deg,#8b5cf6,#6366f1);color:#fff}
+.btn.s{background:rgba(139,92,246,.18);color:#e0d6ff;border:1px solid rgba(167,139,250,.38)}
+.btn.d{background:none;color:var(--wr)}
+.btn.d:hover{background:rgba(255,157,138,.12)}
+table.l td,table.l th{border-bottom-color:rgba(139,92,246,.25)}
+table.l tr:hover td{background:rgba(139,92,246,.16)}
+.gt th,.gt td{border-color:var(--bd)}
+.gt th{background:#0b0940;color:#fff}
+.gt tr:nth-child(even) td{background:rgba(139,92,246,.07)}
+.mp{border-color:var(--bd)}
+.hero{background:linear-gradient(135deg,#3a2fc4 0%,#6d28d9 100%);border:1px solid rgba(167,139,250,.4)}
+.hero::after{background:radial-gradient(circle,rgba(34,211,238,.3),transparent 65%)}
+.hero p{color:#e2dcff}.hero p+p{color:#c4bcf5}
+.card.stat,.stat.s1,.stat.s2,.stat.s3{position:relative;display:flex;flex-direction:column;background:rgba(24,19,110,.78);color:var(--mu);border:1px solid var(--bd);font-size:13.5px}
+.card.stat h2,.stat.s3 h2{order:1;margin:4px 0 4px;font-size:32px;line-height:1.15;color:#fff}
+.stat .ic{position:absolute;top:14px;right:14px;margin:0;width:38px;height:38px;border:1px solid color-mix(in srgb,currentColor 32%,transparent);background:color-mix(in srgb,currentColor 14%,transparent)}
+.stat.s1 .ic{color:#3b82f6}.stat.s2 .ic{color:#14b8a6}.stat.s3 .ic{color:#f97316}
+.stat .bar{order:2;height:8px;margin-top:10px;background:rgba(0,0,0,.35)}
+.stat .bar span{background:linear-gradient(90deg,#22d3ee,#8b5cf6)}
+.dash{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:16px;align-items:start}
+.dash>.card:only-child{grid-column:1/-1}
+.pg{margin-bottom:16px}.pg:last-child{margin-bottom:0}
+.pgh{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:14px;margin-bottom:7px}
+.pgh span{display:flex;align-items:center;gap:9px;min-width:0}
+.pgh i{width:10px;height:10px;border-radius:50%;flex:none}
+.pgh b{color:#fff}
+.pg .bar{height:10px;margin:0 0 6px;background:rgba(0,0,0,.35);border:1px solid rgba(139,92,246,.28)}
+.pg .hint{font-size:12.5px}
+ol.flow li::before{font-family:inherit}
+ol.flow li:hover::before{background:#8b5cf6;color:#fff}
+ol.flow li::after{color:#c4b5fd}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media(max-width:760px){main{padding:14px}.hero{padding:18px}.hero h2{font-size:22px}.hero{grid-template-columns:1fr}.hero .art{display:none}#side::after{display:none}#side button.on{box-shadow:none;background:#6d4bd8;color:#fff}.dash{grid-template-columns:1fr}}
 }
 @media print{body{background:#fff;display:block}header,nav,#side,.top,.noprint{display:none!important}main{padding:0;max-width:none}.page{margin:0;box-shadow:none;page-break-after:always}.scroll{overflow:visible}}
 </style></head><body>
@@ -207,7 +276,8 @@ function setD(id,f,v){const s=db.siswa.find(x=>x.id==id),m=mapelList()[mi],n=D(s
 V.nilai=function(){const L=mapelList();if(mi>=L.length)mi=0;const m=L[mi],tp=tpList(m),ss=kelasSiswa();
 return bar()+`<details class="card noprint" style="padding:10px 16px"><summary class="hint" style="cursor:pointer">Aturan deskripsi dan hitung ulang</summary><div style="margin-top:8px"><p class="hint">KKTP ${C().kktp||75}. Isi nilai tiap TP (sumatif lingkup materi) dan sumatif akhir semester (SAS). Nilai akhir dan deskripsi dihitung otomatis. Aturan deskripsi: TP bernilai di atas atau sama dengan KKTP masuk kelompok “mencapai kompetensi”, kecuali TP dengan nilai terendah. TP terendah, TP di bawah KKTP, dan TP yang belum diisi nilainya masuk “perlu peningkatan”. Bila hanya SAS yang diisi, TP terakhir dijadikan “perlu peningkatan”. Bila nilai akhir di bawah KKTP (misalnya 65 sampai 69 untuk KKTP 70), semua TP otomatis masuk “perlu peningkatan” dan tidak ada yang masuk “mencapai kompetensi”. Kata sifat di rapor mengikuti nilai akhir mapel: 91 sampai 100 “sangat baik”, 80 sampai 90 “baik”, di bawah 80 “cukup baik”.</p><button class="btn s" onclick="if(confirm('Hitung ulang deskripsi semua siswa untuk mapel ini? Edit manual akan tertimpa.'))recalcAll()">Hitung ulang deskripsi mapel ini</button></div></details>`+(ss.length?`<div class="card scroll"><div class="noprint" style="margin-bottom:8px"><button class="btn s" onclick="nilaiExport()">Export Excel</button> <button class="btn s" onclick="$('#nilaiimp').click()">Import Excel</button><input id="nilaiimp" type="file" accept=".xlsx,.xls,.csv" style="display:none" onchange="readX(this,nilaiImport);this.value=''"> <button class="btn d" onclick="hapusNilaiMapel()">Hapus semua nilai mapel ini</button> <span class="hint">Salah isi satu sel? Cukup kosongkan kotaknya. Tombol Hapus di kanan menghapus semua nilai satu siswa untuk mapel ini.</span></div><table class="gt"><tr><th>No</th><th>Nama</th>${tp.map((t,j)=>`<th title="${esc(t)}">TP ${j+1}</th>`).join('')}<th>SAS</th><th>Nilai akhir</th><th>Aksi</th></tr>${ss.map((s,r)=>{const n=D(s).n[m]||{};return `<tr><td>${r+1}</td><td style="min-width:150px">${esc(s.nama)}</td>${tp.map((t,j)=>`<td><input type="number" min="0" max="100" value="${esc((n.t||[])[j])}" onchange="setG('${s.id}',${j},this.value)"></td>`).join('')}<td><input type="number" min="0" max="100" value="${esc(n.s)}" onchange="setG('${s.id}',-1,this.value)"></td><td class="c"><b id="nv${s.id}">${esc(n.v)}</b></td><td class="c"><button class="btn d" onclick="hapusNilai('${s.id}')">Hapus</button></td></tr>`}).join('')}</table></div>`+(tp.length?`<div class="card"><h2>Daftar TP</h2>${tp.map((t,j)=>`<div style="font-size:13px">TP ${j+1}: ${esc(t)}</div>`).join('')}</div>`:`<div class="card hint">Belum ada TP untuk mapel ini. Isi di menu Sekolah, Mapel & TP.</div>`)+`<div class="card"><h2>Deskripsi capaian (bisa diubah)</h2>${ss.map(s=>{const n=D(s).n[m]||{};return `<div class="mp"><b>${esc(s.nama)}</b><div class="g" style="grid-template-columns:1fr 1fr"><div><label>Sudah dikuasai</label><textarea id="da${s.id}" onchange="setD('${s.id}','a',this.value)">${esc(n.a)}</textarea></div><div><label>Perlu pendampingan</label><textarea id="db${s.id}" onchange="setD('${s.id}','b',this.value)">${esc(n.b)}</textarea></div></div></div>`}).join('')}</div>`:`<div class="card">Belum ada siswa di kelas ini.</div>`)};
 V.home=function(){const ss=kelasSiswa(),L=mapelList();let ok=0;const lack=[];ss.forEach(s=>{let c=0;L.forEach(m=>{const n=D(s).n[m];if(n&&n.v!=null&&n.v!=='')c++});ok+=c;if(c<L.length)lack.push(s.nama+' ('+c+'/'+L.length+')')});const tot=ss.length*L.length;
-return bar()+`<div class="hero"><h2>${esc(db.sk.nama||"Selamat datang di e-Rapor SD")}</h2><p>Kelas ${esc(kelasLbl())}, semester ${esc(C().sem)}, tahun pelajaran ${esc(C().ta)}.</p><p>Data tersimpan di peramban perangkat ini. Unduh cadangan secara berkala di menu Cadangkan.</p></div><div class="g"><div class="card stat s1"><h2>${ss.length}</h2>Peserta didik</div><div class="card stat s2"><h2>${L.length}</h2>Mata pelajaran</div><div class="card stat s3"><h2>${tot?Math.round(ok*100/tot):0}%</h2>Nilai akhir terisi</div></div><div class="card"><h2>Alur kerja</h2><ol class="flow"><li>Identitas Sekolah: isi data sekolah, kepala sekolah, wali kelas, dan tanggal rapor.</li><li>Mata Pelajaran: cek daftar mapel dan pilih agama.</li><li>TP: cek atau impor tujuan pembelajaran.</li><li>Peserta Didik: tambah atau impor siswa, lalu isi biodata dan foto lewat tombol Biodata.</li><li>Input Nilai: isi nilai per mapel, deskripsi terisi otomatis.</li><li>Ekstrakurikuler, Absen, dan Catatan: isi per kelas dalam satu tabel.</li><li>Legger: periksa rekap nilai kelas.</li><li>Cetak Rapor: pilih kertas A4 atau F4, lalu cetak.</li><li>Cadangkan: simpan salinan data secara berkala.</li></ol></div>`+(lack.length?`<div class="card"><h2>Nilai belum lengkap</h2><div class="hint">${lack.map(esc).join('<br>')}</div></div>`:'')};
+const pm=L.map((m,i)=>{let c=0;ss.forEach(s=>{const n=D(s).n[m];if(n&&n.v!=null&&n.v!=='')c++});const p=ss.length?Math.round(c*100/ss.length):0,col=['#14b8a6','#f97316','#3b82f6','#eab308','#a78bfa','#ec4899','#22d3ee'][i%7];return `<div class="pg"><div class="pgh"><span><i style="background:${col}"></i>${esc(m.split('|').pop())}</span><b>${p}%</b></div><div class="bar"><span style="width:${p}%;background:linear-gradient(90deg,${col},${col}99)"></span></div><div class="hint">${c} dari ${ss.length} peserta didik</div></div>`}).join('');
+return bar()+`<div class="hero"><div class="txt"><h2>${esc(db.sk.nama||"Selamat datang di e-Rapor SD")}</h2><p>Kelas ${esc(kelasLbl())}, semester ${esc(C().sem)}, tahun pelajaran ${esc(C().ta)}.</p><p>Data tersimpan di peramban perangkat ini. Unduh cadangan secara berkala di menu Cadangkan.</p></div><svg class="art" viewBox="0 0 200 170" aria-hidden="true"><g transform="rotate(-5 100 85)"><rect x="40" y="14" width="124" height="148" rx="10" fill="#fff"/><rect x="56" y="32" width="60" height="8" rx="4" fill="#0f5c4d"/><rect x="56" y="50" width="92" height="5" rx="2.5" fill="#d3dcd8"/><rect x="56" y="64" width="92" height="5" rx="2.5" fill="#d3dcd8"/><rect x="56" y="78" width="70" height="5" rx="2.5" fill="#d3dcd8"/><rect x="56" y="100" width="92" height="22" rx="5" fill="#e6f0ec"/><rect x="62" y="108" width="40" height="6" rx="3" fill="#0f5c4d"/><rect x="112" y="108" width="28" height="6" rx="3" fill="#e9b44c"/><rect x="56" y="132" width="50" height="5" rx="2.5" fill="#d3dcd8"/></g><circle cx="158" cy="124" r="26" fill="#e9b44c"/><path d="M146 124l9 9 17-19" fill="none" stroke="#0a2c27" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="g stats"><div class="card stat s1"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0113 0M16 4.8a3.5 3.5 0 010 6.4M18 14.2a6.5 6.5 0 013.5 5.8"/></svg></span><h2>${ss.length}</h2>Peserta didik</div><div class="card stat s2"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 4h12a4 4 0 014 4v12H8a4 4 0 01-4-4zM4 16a4 4 0 014-4h12"/></svg></span><h2>${L.length}</h2>Mata pelajaran</div><div class="card stat s3"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg></span><h2>${tot?Math.round(ok*100/tot):0}%</h2>Nilai akhir terisi<div class="bar"><span style="width:${tot?Math.round(ok*100/tot):0}%"></span></div></div></div><div class="dash">${ss.length?`<div class="card"><h2>Kelengkapan nilai per mata pelajaran</h2>${pm}</div>`:''}<div class="card"><h2>Alur kerja</h2><ol class="flow"><li tabindex="0" role="button" onclick="tab='sekolah';draw()" onkeydown="if(event.key==='Enter'){tab='sekolah';draw()}">Identitas Sekolah: isi data sekolah, kepala sekolah, wali kelas, dan tanggal rapor.</li><li tabindex="0" role="button" onclick="tab='mapel';draw()" onkeydown="if(event.key==='Enter'){tab='mapel';draw()}">Mata Pelajaran: cek daftar mapel dan pilih agama.</li><li tabindex="0" role="button" onclick="tab='tp';draw()" onkeydown="if(event.key==='Enter'){tab='tp';draw()}">TP: cek atau impor tujuan pembelajaran.</li><li tabindex="0" role="button" onclick="tab='siswa';draw()" onkeydown="if(event.key==='Enter'){tab='siswa';draw()}">Peserta Didik: tambah atau impor siswa, lalu isi biodata dan foto lewat tombol Biodata.</li><li tabindex="0" role="button" onclick="tab='nilai';draw()" onkeydown="if(event.key==='Enter'){tab='nilai';draw()}">Input Nilai: isi nilai per mapel, deskripsi terisi otomatis.</li><li tabindex="0" role="button" onclick="tab='ekskul';draw()" onkeydown="if(event.key==='Enter'){tab='ekskul';draw()}">Ekstrakurikuler, Absen, dan Catatan: isi per kelas dalam satu tabel.</li><li tabindex="0" role="button" onclick="tab='legger';draw()" onkeydown="if(event.key==='Enter'){tab='legger';draw()}">Legger: periksa rekap nilai kelas.</li><li tabindex="0" role="button" onclick="tab='cetak';draw()" onkeydown="if(event.key==='Enter'){tab='cetak';draw()}">Cetak Rapor: pilih kertas A4 atau F4, lalu cetak.</li><li tabindex="0" role="button" onclick="tab='cadang';draw()" onkeydown="if(event.key==='Enter'){tab='cadang';draw()}">Cadangkan: simpan salinan data secara berkala.</li></ol></div></div>`+(lack.length?`<div class="card"><h2>Nilai belum lengkap</h2><div class="hint">${lack.map(esc).join('<br>')}</div></div>`:'')};
 V.legger=function(){const ss=kelasSiswa(),L=mapelList();const rows=ss.map(s=>{const v=L.map(m=>{const x=parseFloat((D(s).n[m]||{}).v);return isNaN(x)?null:x});const f=v.filter(x=>x!=null),j=f.reduce((a,b)=>a+b,0);return{s,v,j,r:f.length?j/f.length:0}});const so=[...rows].sort((a,b)=>b.j-a.j);rows.forEach(r=>r.rk=so.indexOf(r)+1);
 return bar()+(rows.length?`<div class="card scroll"><h2>Legger nilai kelas ${esc(kelasLbl())}</h2><table class="gt"><tr><th>No</th><th>Nama</th>${L.map(m=>`<th>${esc(m.split('|').pop())}</th>`).join('')}<th>Jumlah</th><th>Rata-rata</th><th>Peringkat</th></tr>${rows.map((r,i)=>`<tr><td>${i+1}</td><td style="min-width:150px">${esc(r.s.nama)}</td>${r.v.map(x=>`<td class="c">${x==null?'':x}</td>`).join('')}<td class="c">${r.j}</td><td class="c">${r.r.toFixed(1)}</td><td class="c">${r.rk}</td></tr>`).join('')}</table></div>`:'<div class="card">Belum ada siswa.</div>')};
 function addS(){const n=$('#sn').value.trim();if(!n)return;db.siswa.push({id:'s'+Date.now()+Math.random().toString(36).slice(2,5),nama:n,nisn:$('#sj').value.trim(),kelas:C().kelas,rombel:C().rombel});save();draw()}
