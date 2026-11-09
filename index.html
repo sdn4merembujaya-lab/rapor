@@ -291,6 +291,23 @@ body{background:#4c1d95!important}
 @media(max-width:900px){.gr{grid-template-columns:1fr}}
 }
 @media print{#bgd{display:none!important}}
+
+/* ===== Menu atas berwarna ===== */
+@media screen{
+.mnu{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin-bottom:16px}
+.mt{position:relative;overflow:hidden;display:flex;align-items:center;gap:11px;text-align:left;border:1px solid rgba(255,255,255,.28);border-radius:14px;padding:11px 12px;cursor:pointer;color:#fff;font:inherit;background:linear-gradient(135deg,var(--c1),var(--c2));box-shadow:0 8px 18px rgba(20,5,70,.35),inset 0 1px 0 rgba(255,255,255,.35);transition:transform .15s,box-shadow .15s,filter .15s}
+.mt::after{content:"";position:absolute;right:-22px;top:-26px;width:76px;height:76px;border-radius:50%;background:rgba(255,255,255,.18);pointer-events:none}
+.mt:hover,.mt:focus-visible{transform:translateY(-3px);filter:brightness(1.08);box-shadow:0 14px 24px rgba(20,5,70,.45),inset 0 1px 0 rgba(255,255,255,.4);outline:0}
+.mt:active{transform:translateY(0)}
+.mt .mi{flex:none;display:grid;place-items:center;width:38px;height:38px;border-radius:11px;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.35)}
+.mt .mi svg{width:20px;height:20px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.mt .mx{min-width:0;display:flex;flex-direction:column;position:relative;z-index:1}
+.mt b{font-size:14px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 2px rgba(0,0,0,.25)}
+.mt small{font-size:11.5px;opacity:.9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ccol{flex:1 0 50px!important}
+}
+@media(max-width:480px){.mnu{grid-template-columns:repeat(2,minmax(0,1fr))}.mt small{display:none}}
+@media print{.mnu{display:none!important}}
 </style></head><body class="locked">
 <div id="bgd" aria-hidden="true"><svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
 <defs>
@@ -533,32 +550,47 @@ if(p3){const c=p3.children[2];if(c&&c.classList.contains('gap'))c.remove();const
 if(W&&warn)W.textContent='Isi rapor sangat panjang dan masih melewati batas halaman. Pilih jarak Rapat, kecilkan margin, atau kecilkan ruang aman bawah.'}
 function draw(){if(tab!='siswa')editId=null;applyPaper();nav();$('#app').innerHTML=V[tab]();if(tab=='cetak')fitPages();window.scrollTo(0,0)}
 
-/* ===== Dashboard: nama siswa + grafik nilai ===== */
+/* ===== Dashboard mandiri: menu berwarna + ringkasan + grafik ===== */
 (function(){
 const PAL=[['#22d3ee','#3b82f6'],['#f472b6','#a855f7'],['#fbbf24','#f97316'],['#34d399','#14b8a6'],['#a78bfa','#6366f1'],['#fb7185','#f43f5e'],['#60a5fa','#22d3ee']];
 const g=(i,a)=>`linear-gradient(${a||'90deg'},${PAL[i%7][0]},${PAL[i%7][1]})`;
 const avg=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:null;
-const _h=V.home;
+const MENU=[
+['sekolah','Identitas Sekolah','Data sekolah dan wali','#6366f1','#8b5cf6'],
+['mapel','Mata Pelajaran','Daftar mapel','#0ea5e9','#22d3ee'],
+['tp','TP','Tujuan pembelajaran','#0d9488','#34d399'],
+['siswa','Peserta Didik','Data dan biodata','#d97706','#fbbf24'],
+['nilai','Input Nilai','Nilai dan capaian','#db2777','#f472b6'],
+['ekskul','Ekstrakurikuler','Kegiatan siswa','#ea580c','#fb923c'],
+['absen','Absen','Kehadiran','#dc2626','#fb7185'],
+['catatan','Catatan','Catatan wali kelas','#9333ea','#d946ef'],
+['legger','Legger','Rekap nilai kelas','#2563eb','#60a5fa'],
+['cetak','Cetak Rapor','Kertas A4 atau F4','#16a34a','#4ade80'],
+['cadang','Cadangkan','Simpan salinan data','#475569','#94a3b8']];
+const ok=(n)=>n&&n.v!=null&&n.v!=='';
 V.home=function(){
- const html=_h(),ss=kelasSiswa(),L=mapelList();
- const fix=h=>{h=h.replace(/<div class="card"><h2>Nilai belum lengkap<\/h2>[\s\S]*$/,'');h=h.replace(/<div class="card"><h2>Alur kerja<\/h2><ol class="flow">[\s\S]*?<\/ol><\/div>/,'');h=h.replace(/<svg class="art"[\s\S]*?<\/svg>/,'');
-  const a=h.indexOf('<div class="g stats">'),b=h.indexOf('<div class="dash">');if(a<0||b<0)return {hero:h,inner:''};
-  const hero=h.slice(0,a),stats=h.slice(a,b),inner=h.slice(b).replace('<div class="dash">','').replace(/<\/div>\s*$/,'');
-  return {hero:hero.replace(/<\/div>$/,stats+'</div>'),inner}};
- if(!ss.length){const f=fix(html);return f.hero+(f.inner.trim()?`<div class="gr one">${f.inner}</div>`:'')}
- const vals=(s)=>L.map(m=>parseFloat((D(s).n[m]||{}).v)).filter(x=>!isNaN(x));
+ const ss=kelasSiswa(),L=mapelList(),tot=ss.length*L.length;
+ const cnt=s=>L.filter(m=>ok(D(s).n[m])).length;
+ const filled=ss.reduce((a,s)=>a+cnt(s),0),pct=tot?Math.round(filled*100/tot):0;
+ const isAdm=!!document.querySelector('#side button[onclick*="\'guru\'"]'),MN=isAdm?MENU.concat([['guru','Kelola Guru','Akun guru dan sandi','#7c3aed','#a78bfa']]):MENU;
+ const menu=`<nav class="mnu" aria-label="Menu utama">${MN.map(m=>`<button type="button" class="mt" style="--c1:${m[3]};--c2:${m[4]}" onclick="tab='${m[0]}';draw()"><span class="mi"><svg viewBox="0 0 24 24">${IC[m[0]]||''}</svg></span><span class="mx"><b>${m[1]}</b><small>${m[2]}</small></span></button>`).join('')}</nav>`;
+ const hero=`<div class="hero"><div class="txt"><h2>${esc(db.sk.nama||'Selamat datang di e-Rapor SD')}</h2><p>Kelas ${esc(kelasLbl())}, semester ${esc(C().sem)}, tahun pelajaran ${esc(C().ta)}.</p><p>Data tersimpan di peramban perangkat ini. Unduh cadangan secara berkala di menu Cadangkan.</p></div><div class="g stats"><div class="card stat s1"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0113 0M16 4.8a3.5 3.5 0 010 6.4M18 14.2a6.5 6.5 0 013.5 5.8"/></svg></span><h2>${ss.length}</h2>Peserta didik</div><div class="card stat s2"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 4h12a4 4 0 014 4v12H8a4 4 0 01-4-4zM4 16a4 4 0 014-4h12"/></svg></span><h2>${L.length}</h2>Mata pelajaran</div><div class="card stat s3"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg></span><h2>${pct}%</h2>Nilai akhir terisi<div class="bar"><span style="width:${pct}%"></span></div></div></div></div>`;
+ if(!ss.length)return menu+hero+`<div class="card"><h2>Belum ada peserta didik</h2><p class="hint" style="color:#e5d9ff">Tambahkan siswa lewat menu Peserta Didik di atas.</p></div>`;
+ const vals=s=>L.map(m=>parseFloat((D(s).n[m]||{}).v)).filter(x=>!isNaN(x));
  const rows=ss.map((s,i)=>({s,i,n:vals(s).length,r:avg(vals(s))}));
- rows.sort((a,b)=>(b.r==null)-(a.r==null)||(b.r||0)-(a.r||0)||a.i-b.i);
- const ada=rows.filter(r=>r.r!=null),kls=avg(ada.map(r=>r.r)),top=ada[0];
- const sr=rows.map((r,k)=>{const w=r.r==null?0:Math.max(0,Math.min(100,r.r));
-  return `<div class="sr" tabindex="0" role="button" onclick="sel='${esc(r.s.id)}';tab='nilai';draw()" onkeydown="if(event.key==='Enter'){sel='${esc(r.s.id)}';tab='nilai';draw()}"><span class="av" style="background:${g(r.i,'135deg')}">${esc((r.s.nama.trim()[0]||'?').toUpperCase())}</span><div style="min-width:0"><div class="sn">${esc(r.s.nama)}<small>${r.n}/${L.length} mapel</small></div><div class="tk"><span style="width:${w}%;background:${g(r.i)}"></span></div></div><div class="sc">${r.r==null?'-':r.r.toFixed(1)}</div></div>`}).join('');
- const mv=L.map((m,i)=>{const a=[];ss.forEach(s=>{const x=parseFloat((D(s).n[m]||{}).v);if(!isNaN(x))a.push(x)});return{m:m.split('|').pop(),r:avg(a),i}});
+ const urut=[...rows].sort((a,b)=>(a.r==null)-(b.r==null)||(b.r||0)-(a.r||0)||a.i-b.i);
+ const ada=urut.filter(r=>r.r!=null),kls=avg(ada.map(r=>r.r)),top=ada[0];
+ const go=id=>`onclick="sel='${esc(id)}';tab='nilai';draw()" onkeydown="if(event.key==='Enter'){sel='${esc(id)}';tab='nilai';draw()}"`;
+ const sr=urut.map(r=>{const w=r.r==null?0:Math.max(0,Math.min(100,r.r));return `<div class="sr" tabindex="0" role="button" ${go(r.s.id)}><span class="av" style="background:${g(r.i,'135deg')}">${esc((r.s.nama.trim()[0]||'?').toUpperCase())}</span><div style="min-width:0"><div class="sn">${esc(r.s.nama)}<small>${r.n}/${L.length} mapel</small></div><div class="tk"><span style="width:${w}%;background:${g(r.i)}"></span></div></div><div class="sc">${r.r==null?'-':r.r.toFixed(1)}</div></div>`}).join('');
+ const mv=L.map((m,i)=>{const a=[];ss.forEach(s=>{const x=parseFloat((D(s).n[m]||{}).v);if(!isNaN(x))a.push(x)});return{m:m.split('|').pop(),r:avg(a),n:a.length,i}});
  const cc=mv.map(x=>{const h=x.r==null?0:Math.max(0,Math.min(100,x.r));return `<div class="ccol"><div class="cv">${x.r==null?'':x.r.toFixed(0)}</div><div class="cbw"><div class="cb" style="height:${h}%;background:${g(x.i,'180deg')}"></div></div><div class="cl" title="${esc(x.m)}">${esc(x.m.length>16?x.m.slice(0,15)+'…':x.m)}</div></div>`}).join('');
- const card=`<div class="gr"><div class="card"><div class="ghd"><h2>Peserta didik dan rata-rata nilai</h2><span class="chip">${ss.length} siswa</span></div>${ada.length?`<div class="ghd" style="margin-top:-4px"><span class="chip">Rata-rata kelas <b>${kls.toFixed(1)}</b></span><span class="chip">Tertinggi <b>${esc(top.s.nama.split(' ')[0])} ${top.r.toFixed(1)}</b></span></div>`:''}<div class="srl">${sr}</div>${ada.length?'':'<p class="hint" style="margin:10px 0 0">Nilai belum diisi. Grafik akan muncul setelah nilai akhir terisi.</p>'}</div><div class="card"><div class="ghd"><h2>Rata-rata nilai per mata pelajaran</h2></div>${mv.some(x=>x.r!=null)?`<div class="cc">${cc}</div>`:'<div class="gnone">Belum ada nilai akhir yang terisi.</div>'}</div></div>`;
- const lk=rows.filter(r=>r.n<L.length).sort((a,b)=>a.i-b.i);
- const lkc=lk.length?`<div class="card"><div class="ghd"><h2>Nilai belum lengkap</h2><span class="chip"><b>${lk.length}</b> siswa belum lengkap</span><button class="btn s" onclick="tab='nilai';draw()">Isi nilai</button></div><div class="srl">${lk.map(r=>{const w=Math.round(r.n*100/L.length);return `<div class="sr" tabindex="0" role="button" onclick="sel='${esc(r.s.id)}';tab='nilai';draw()" onkeydown="if(event.key==='Enter'){sel='${esc(r.s.id)}';tab='nilai';draw()}"><span class="av" style="background:${g(r.i,'135deg')}">${esc((r.s.nama.trim()[0]||'?').toUpperCase())}</span><div style="min-width:0"><div class="sn">${esc(r.s.nama)}</div><div class="tk"><span style="width:${w}%;background:linear-gradient(90deg,#fbbf24,#f472b6)"></span></div></div><div class="sc">${r.n}/${L.length}</div></div>`}).join('')}</div></div>`:'';
- const f=fix(html);
- return f.hero+card+`<div class="gr${lkc?'':' one'}">`+f.inner+lkc+'</div>';
+ const card1=`<div class="card"><div class="ghd"><h2>Peserta didik dan rata-rata nilai</h2><span class="chip">${ss.length} siswa</span></div>${ada.length?`<div class="ghd" style="margin-top:-4px"><span class="chip">Rata-rata kelas <b>${kls.toFixed(1)}</b></span><span class="chip">Tertinggi <b>${esc(top.s.nama.split(' ')[0])} ${top.r.toFixed(1)}</b></span></div>`:''}<div class="srl">${sr}</div>${ada.length?'':'<p class="hint" style="margin:10px 0 0;color:#e5d9ff">Nilai belum diisi. Grafik akan muncul setelah nilai akhir terisi.</p>'}</div>`;
+ const card2=`<div class="card"><div class="ghd"><h2>Rata-rata nilai per mata pelajaran</h2></div>${mv.some(x=>x.r!=null)?`<div class="cc">${cc}</div>`:'<div class="gnone">Belum ada nilai akhir yang terisi.</div>'}</div>`;
+ const pm=mv.map(x=>{const p=Math.round(x.n*100/ss.length),col=PAL[x.i%7][0];return `<div class="pg"><div class="pgh"><span><i style="background:${col}"></i>${esc(x.m)}</span><b>${p}%</b></div><div class="bar"><span style="width:${p}%;background:${g(x.i)}"></span></div><div class="hint" style="color:#d9c9ff">${x.n} dari ${ss.length} peserta didik</div></div>`}).join('');
+ const card3=`<div class="card"><div class="ghd"><h2>Kelengkapan nilai per mata pelajaran</h2></div>${pm}</div>`;
+ const lk=rows.filter(r=>r.n<L.length);
+ const card4=lk.length?`<div class="card"><div class="ghd"><h2>Nilai belum lengkap</h2><span class="chip"><b>${lk.length}</b> siswa</span><button class="btn s" onclick="tab='nilai';draw()">Isi nilai</button></div><div class="srl">${lk.map(r=>{const w=Math.round(r.n*100/L.length);return `<div class="sr" tabindex="0" role="button" ${go(r.s.id)}><span class="av" style="background:${g(r.i,'135deg')}">${esc((r.s.nama.trim()[0]||'?').toUpperCase())}</span><div style="min-width:0"><div class="sn">${esc(r.s.nama)}</div><div class="tk"><span style="width:${w}%;background:linear-gradient(90deg,#fbbf24,#f472b6)"></span></div></div><div class="sc">${r.n}/${L.length}</div></div>`}).join('')}</div></div>`:'';
+ return menu+hero+`<div class="gr">${card1}${card2}</div><div class="gr${card4?'':' one'}">${card3}${card4}</div>`;
 };
 })();
 /* ===== Login dan akun ===== */
