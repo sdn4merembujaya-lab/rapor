@@ -278,6 +278,16 @@ body{background:#4c1d95!important}
 .cb{width:68%;max-width:40px;min-height:3px;border-radius:11px 11px 3px 3px;box-shadow:0 6px 14px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.4)}
 .cl{font-size:11px;line-height:1.25;text-align:center;color:#e5d9ff;margin-top:7px;height:30px;overflow:hidden;word-break:break-word}
 .gnone{padding:26px 8px;text-align:center;color:#e5d9ff}
+.hero{grid-template-columns:minmax(0,.9fr) minmax(0,1.6fr)!important;gap:18px!important}
+.hero .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;position:relative;z-index:1}
+.hero .card.stat{margin:0;padding:12px 40px 12px 14px;min-width:0;font-size:12.5px;background:rgba(30,10,90,.42)}
+.hero .card.stat h2{font-size:26px;margin:2px 0}
+.hero .stat .ic{width:28px;height:28px;top:10px;right:10px;border-radius:9px}
+.hero .stat .ic svg{width:15px;height:15px}
+.hero .stat .bar{height:6px;margin-top:6px}
+.gr.one{grid-template-columns:1fr}
+@media(max-width:900px){.hero{grid-template-columns:1fr!important}}
+@media(max-width:480px){.hero .stats{grid-template-columns:1fr}}
 @media(max-width:900px){.gr{grid-template-columns:1fr}}
 }
 @media print{#bgd{display:none!important}}
@@ -531,7 +541,11 @@ const avg=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:null;
 const _h=V.home;
 V.home=function(){
  const html=_h(),ss=kelasSiswa(),L=mapelList();
- if(!ss.length)return html;
+ const fix=h=>{h=h.replace(/<div class="card"><h2>Nilai belum lengkap<\/h2>[\s\S]*$/,'');h=h.replace(/<div class="card"><h2>Alur kerja<\/h2><ol class="flow">[\s\S]*?<\/ol><\/div>/,'');h=h.replace(/<svg class="art"[\s\S]*?<\/svg>/,'');
+  const a=h.indexOf('<div class="g stats">'),b=h.indexOf('<div class="dash">');if(a<0||b<0)return {hero:h,inner:''};
+  const hero=h.slice(0,a),stats=h.slice(a,b),inner=h.slice(b).replace('<div class="dash">','').replace(/<\/div>\s*$/,'');
+  return {hero:hero.replace(/<\/div>$/,stats+'</div>'),inner}};
+ if(!ss.length){const f=fix(html);return f.hero+(f.inner.trim()?`<div class="gr one">${f.inner}</div>`:'')}
  const vals=(s)=>L.map(m=>parseFloat((D(s).n[m]||{}).v)).filter(x=>!isNaN(x));
  const rows=ss.map((s,i)=>({s,i,n:vals(s).length,r:avg(vals(s))}));
  rows.sort((a,b)=>(b.r==null)-(a.r==null)||(b.r||0)-(a.r||0)||a.i-b.i);
@@ -543,8 +557,8 @@ V.home=function(){
  const card=`<div class="gr"><div class="card"><div class="ghd"><h2>Peserta didik dan rata-rata nilai</h2><span class="chip">${ss.length} siswa</span></div>${ada.length?`<div class="ghd" style="margin-top:-4px"><span class="chip">Rata-rata kelas <b>${kls.toFixed(1)}</b></span><span class="chip">Tertinggi <b>${esc(top.s.nama.split(' ')[0])} ${top.r.toFixed(1)}</b></span></div>`:''}<div class="srl">${sr}</div>${ada.length?'':'<p class="hint" style="margin:10px 0 0">Nilai belum diisi. Grafik akan muncul setelah nilai akhir terisi.</p>'}</div><div class="card"><div class="ghd"><h2>Rata-rata nilai per mata pelajaran</h2></div>${mv.some(x=>x.r!=null)?`<div class="cc">${cc}</div>`:'<div class="gnone">Belum ada nilai akhir yang terisi.</div>'}</div></div>`;
  const lk=rows.filter(r=>r.n<L.length).sort((a,b)=>a.i-b.i);
  const lkc=lk.length?`<div class="card"><div class="ghd"><h2>Nilai belum lengkap</h2><span class="chip"><b>${lk.length}</b> siswa belum lengkap</span><button class="btn s" onclick="tab='nilai';draw()">Isi nilai</button></div><div class="srl">${lk.map(r=>{const w=Math.round(r.n*100/L.length);return `<div class="sr" tabindex="0" role="button" onclick="sel='${esc(r.s.id)}';tab='nilai';draw()" onkeydown="if(event.key==='Enter'){sel='${esc(r.s.id)}';tab='nilai';draw()}"><span class="av" style="background:${g(r.i,'135deg')}">${esc((r.s.nama.trim()[0]||'?').toUpperCase())}</span><div style="min-width:0"><div class="sn">${esc(r.s.nama)}</div><div class="tk"><span style="width:${w}%;background:linear-gradient(90deg,#fbbf24,#f472b6)"></span></div></div><div class="sc">${r.n}/${L.length}</div></div>`}).join('')}</div></div>`:'';
- const out=html.replace(/<div class="card"><h2>Nilai belum lengkap<\/h2>[\s\S]*$/,'');
- return out.replace('<div class="dash">',card+'<div class="dash">')+lkc;
+ const f=fix(html);
+ return f.hero+card+`<div class="gr${lkc?'':' one'}">`+f.inner+lkc+'</div>';
 };
 })();
 /* ===== Login dan akun ===== */
