@@ -360,7 +360,27 @@ body{background:#4c1d95!important}
 
 <nav id="side"></nav>
 <div class="wrap"><header class="top noprint" id="top"></header>
-<main id="app"></main></div><style id="pgs"></style><script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<main id="app"></main></div><style id="pgs">
+/* ===== Dashboard rapi: hero tanpa sambutan, panel berpasangan sama tinggi & lebar ===== */
+@media screen{
+.hero{grid-template-columns:minmax(0,1fr)!important;padding:18px 20px!important}
+.gr.eq{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:stretch}
+.gr.eq .card{display:flex;flex-direction:column;min-height:0;box-sizing:border-box}
+.gr.eq.r1 .card{height:520px}
+.gr.eq.r2 .card{height:400px}
+.gr.eq .srl{flex:1 1 0;min-height:0;max-height:none}
+.gr.eq .cc{flex:1 1 0;height:auto;min-height:0}
+.gr.eq .pml{flex:1 1 0;min-height:0;overflow:auto;padding-right:6px;scrollbar-width:thin}
+.gr.eq .gnone{flex:1;display:grid;place-items:center}
+@media(max-width:900px){
+.gr.eq{grid-template-columns:1fr}
+.gr.eq .card{height:auto!important}
+.gr.eq .srl{flex:none;max-height:420px}
+.gr.eq .cc{flex:none;height:270px}
+.gr.eq .pml{flex:none;max-height:340px}
+}
+}
+</style><script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 const $=s=>document.querySelector(s);
 const esc=t=>String(t==null?'':t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -574,7 +594,7 @@ V.home=function(){
  const filled=ss.reduce((a,s)=>a+cnt(s),0),pct=tot?Math.round(filled*100/tot):0;
  const isAdm=!!document.querySelector('#side button[onclick*="\'guru\'"]'),MN=isAdm?MENU.concat([['guru','Kelola Guru','Akun guru dan sandi','#7c3aed','#a78bfa']]):MENU;
  const menu=`<nav class="mnu" aria-label="Menu utama">${MN.map(m=>`<button type="button" class="mt" style="--c1:${m[3]};--c2:${m[4]}" onclick="tab='${m[0]}';draw()"><span class="mi"><svg viewBox="0 0 24 24">${IC[m[0]]||''}</svg></span><span class="mx"><b>${m[1]}</b><small>${m[2]}</small></span></button>`).join('')}</nav>`;
- const hero=`<div class="hero"><div class="txt"><h2>${esc(db.sk.nama||'Selamat datang di e-Rapor SD')}</h2><p>Kelas ${esc(kelasLbl())}, semester ${esc(C().sem)}, tahun pelajaran ${esc(C().ta)}.</p><p>Data tersimpan di peramban perangkat ini. Unduh cadangan secara berkala di menu Cadangkan.</p></div><div class="g stats"><div class="card stat s1"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0113 0M16 4.8a3.5 3.5 0 010 6.4M18 14.2a6.5 6.5 0 013.5 5.8"/></svg></span><h2>${ss.length}</h2>Peserta didik</div><div class="card stat s2"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 4h12a4 4 0 014 4v12H8a4 4 0 01-4-4zM4 16a4 4 0 014-4h12"/></svg></span><h2>${L.length}</h2>Mata pelajaran</div><div class="card stat s3"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg></span><h2>${pct}%</h2>Nilai akhir terisi<div class="bar"><span style="width:${pct}%"></span></div></div></div></div>`;
+ const hero=`<div class="hero"><div class="g stats"><div class="card stat s1"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0113 0M16 4.8a3.5 3.5 0 010 6.4M18 14.2a6.5 6.5 0 013.5 5.8"/></svg></span><h2>${ss.length}</h2>Peserta didik</div><div class="card stat s2"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 4h12a4 4 0 014 4v12H8a4 4 0 01-4-4zM4 16a4 4 0 014-4h12"/></svg></span><h2>${L.length}</h2>Mata pelajaran</div><div class="card stat s3"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg></span><h2>${pct}%</h2>Nilai akhir terisi<div class="bar"><span style="width:${pct}%"></span></div></div></div></div>`;
  if(!ss.length)return menu+hero+`<div class="card"><h2>Belum ada peserta didik</h2><p class="hint" style="color:#e5d9ff">Tambahkan siswa lewat menu Peserta Didik di atas.</p></div>`;
  const vals=s=>L.map(m=>parseFloat((D(s).n[m]||{}).v)).filter(x=>!isNaN(x));
  const rows=ss.map((s,i)=>({s,i,n:vals(s).length,r:avg(vals(s))}));
@@ -587,10 +607,10 @@ V.home=function(){
  const card1=`<div class="card"><div class="ghd"><h2>Peserta didik dan rata-rata nilai</h2><span class="chip">${ss.length} siswa</span></div>${ada.length?`<div class="ghd" style="margin-top:-4px"><span class="chip">Rata-rata kelas <b>${kls.toFixed(1)}</b></span><span class="chip">Tertinggi <b>${esc(top.s.nama.split(' ')[0])} ${top.r.toFixed(1)}</b></span></div>`:''}<div class="srl">${sr}</div>${ada.length?'':'<p class="hint" style="margin:10px 0 0;color:#e5d9ff">Nilai belum diisi. Grafik akan muncul setelah nilai akhir terisi.</p>'}</div>`;
  const card2=`<div class="card"><div class="ghd"><h2>Rata-rata nilai per mata pelajaran</h2></div>${mv.some(x=>x.r!=null)?`<div class="cc">${cc}</div>`:'<div class="gnone">Belum ada nilai akhir yang terisi.</div>'}</div>`;
  const pm=mv.map(x=>{const p=Math.round(x.n*100/ss.length),col=PAL[x.i%7][0];return `<div class="pg"><div class="pgh"><span><i style="background:${col}"></i>${esc(x.m)}</span><b>${p}%</b></div><div class="bar"><span style="width:${p}%;background:${g(x.i)}"></span></div><div class="hint" style="color:#d9c9ff">${x.n} dari ${ss.length} peserta didik</div></div>`}).join('');
- const card3=`<div class="card"><div class="ghd"><h2>Kelengkapan nilai per mata pelajaran</h2></div>${pm}</div>`;
+ const card3=`<div class="card"><div class="ghd"><h2>Kelengkapan nilai per mata pelajaran</h2></div><div class="pml">${pm}</div></div>`;
  const lk=rows.filter(r=>r.n<L.length);
  const card4=lk.length?`<div class="card"><div class="ghd"><h2>Nilai belum lengkap</h2><span class="chip"><b>${lk.length}</b> siswa</span><button class="btn s" onclick="tab='nilai';draw()">Isi nilai</button></div><div class="srl">${lk.map(r=>{const w=Math.round(r.n*100/L.length);return `<div class="sr" tabindex="0" role="button" ${go(r.s.id)}><span class="av" style="background:${g(r.i,'135deg')}">${esc((r.s.nama.trim()[0]||'?').toUpperCase())}</span><div style="min-width:0"><div class="sn">${esc(r.s.nama)}</div><div class="tk"><span style="width:${w}%;background:linear-gradient(90deg,#fbbf24,#f472b6)"></span></div></div><div class="sc">${r.n}/${L.length}</div></div>`}).join('')}</div></div>`:'';
- return menu+hero+`<div class="gr">${card1}${card2}</div><div class="gr${card4?'':' one'}">${card3}${card4}</div>`;
+ return menu+hero+(card4?`<div class="gr eq r1">${card1}${card4}</div><div class="gr eq r2">${card2}${card3}</div>`:`<div class="gr eq r1">${card1}${card2}</div><div class="gr one">${card3}</div>`);
 };
 })();
 /* ===== Login dan akun ===== */
