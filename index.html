@@ -5,6 +5,7 @@
 <meta name="description" content="Aplikasi rapor SD Kurikulum Merdeka: input nilai, capaian otomatis, legger, cetak A4/F4. Berjalan di peramban, data tersimpan di perangkat.">
 <meta name="theme-color" content="#0d0a3d">
 <meta property="og:title" content="e-Rapor SD"><meta property="og:description" content="Aplikasi rapor SD Kurikulum Merdeka yang berjalan di peramban.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2314106b'/%3E%3Ctext x='32' y='45' font-size='38' font-family='Georgia,serif' font-weight='700' text-anchor='middle' fill='%23a78bfa'%3Ee%3C/text%3E%3C/svg%3E">
 <style>
 :root{--bg:#f3f5f2;--sf:#fff;--tx:#17302b;--mu:#5b6f6a;--ac:#0f5c4d;--ac2:#e6f0ec;--bd:#d3dcd8;--wr:#a33a2a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -179,7 +180,92 @@ ol.flow li::after{color:#c4b5fd}
 @media(max-width:760px){main{padding:14px}.hero{padding:18px}.hero h2{font-size:22px}.hero{grid-template-columns:1fr}.hero .art{display:none}#side::after{display:none}#side button.on{box-shadow:none;background:#6d4bd8;color:#fff}.dash{grid-template-columns:1fr}}
 }
 @media print{body{background:#fff;display:block}header,nav,#side,.top,.noprint{display:none!important}main{padding:0;max-width:none}.page{margin:0;box-shadow:none;page-break-after:always}.scroll{overflow:visible}}
-</style></head><body>
+
+/* ===== Login ===== */
+body.locked #side,body.locked .wrap{display:none}
+#lg{position:fixed;inset:0;z-index:1000;display:none;overflow:auto;padding:max(20px,env(safe-area-inset-top)) 16px max(20px,env(safe-area-inset-bottom));font-family:Poppins,"Segoe UI",system-ui,sans-serif;color:#fff;background:#0d0a3d}
+body.locked #lg{display:flex}
+.lgbg{position:fixed;inset:0;overflow:hidden;background:radial-gradient(900px 600px at 12% 8%,#3a2fc4 0%,transparent 60%),radial-gradient(800px 600px at 92% 92%,#6d28d9 0%,transparent 55%),linear-gradient(160deg,#0d0a3d,#14106b 55%,#0a0830)}
+.lgbg::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(167,139,250,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(167,139,250,.09) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:radial-gradient(circle at 50% 45%,#000 15%,transparent 72%);mask-image:radial-gradient(circle at 50% 45%,#000 15%,transparent 72%)}
+.lgbg i{position:absolute;border-radius:50%;filter:blur(64px);opacity:.45;animation:lgfl 14s ease-in-out infinite alternate}
+.lgbg i:nth-child(1){width:340px;height:340px;background:#22d3ee;left:-90px;top:58%}
+.lgbg i:nth-child(2){width:300px;height:300px;background:#ff2770;right:-70px;top:-70px;animation-delay:-5s}
+.lgbg i:nth-child(3){width:260px;height:260px;background:#8b5cf6;left:42%;bottom:-130px;animation-delay:-9s}
+@keyframes lgfl{to{transform:translate(40px,-30px) scale(1.15)}}
+.lgcol{position:relative;margin:auto;width:min(380px,100%);display:flex;flex-direction:column;align-items:center;gap:22px}
+.lgbrand{display:flex;align-items:center;gap:12px}
+.lgbrand span{display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#45f3ff,#8b5cf6);color:#0d0a3d;font:700 24px Georgia,serif}
+.lgbrand b{display:block;font:600 20px/1.2 Poppins,"Segoe UI",sans-serif}
+.lgbrand small{display:block;font-size:13px;color:#c4bcf5}
+.lgwrap{position:relative;width:100%}
+.lgbox,.lgglow{border-radius:18px;overflow:hidden}
+.lgbox{position:relative;z-index:1;padding:3px;background:#1d1e24;box-shadow:0 30px 60px rgba(0,0,0,.45)}
+.lgglow{position:absolute;inset:-6px;z-index:0;filter:blur(16px);opacity:.55}
+.lgbox::before,.lgglow::before{content:"";position:absolute;left:50%;top:50%;width:260%;aspect-ratio:1;transform:translate(-50%,-50%);background:conic-gradient(from 0deg,transparent 0 12%,#45f3ff 22%,transparent 34% 62%,#ff2770 72%,transparent 84%);animation:lgspin 7s linear infinite}
+@keyframes lgspin{from{transform:translate(-50%,-50%) rotate(0)}to{transform:translate(-50%,-50%) rotate(360deg)}}
+.lgplate{position:relative;z-index:1;border-radius:15px;background:#2a2b32;padding:14px}
+.lgpanel{display:flex;flex-direction:column;gap:16px;border-radius:10px;background:#1b1c21;box-shadow:inset 0 10px 20px rgba(0,0,0,.5);border-bottom:2px solid rgba(255,255,255,.35);padding:30px 26px 22px}
+.lgt{margin:0 0 6px;display:flex;justify-content:center;align-items:center;gap:12px;font:600 21px Poppins,"Segoe UI",sans-serif;letter-spacing:.22em}
+.lgt svg{width:24px;height:24px;flex:none;color:#ff2770;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 5px #ff2770) drop-shadow(0 0 12px #ff2770)}
+.lgt svg.h{fill:currentColor;stroke:none}
+.lgin{position:relative}
+.lgin input{width:100%;padding:12px 18px;border:2px solid #fff;border-radius:999px;background:transparent;color:#fff;font:400 15px Poppins,"Segoe UI",sans-serif;outline:none;transition:border-color .25s,box-shadow .25s}
+.lgin input::placeholder{color:rgba(255,255,255,.55)}
+.lgin input:focus{border-color:#45f3ff;box-shadow:0 0 0 3px rgba(69,243,255,.2),0 0 14px rgba(69,243,255,.35)}
+.lgin input:-webkit-autofill{-webkit-box-shadow:0 0 0 100px #1b1c21 inset;-webkit-text-fill-color:#fff;caret-color:#fff}
+.lgin input.pw{padding-right:48px}
+.lgeye{position:absolute;right:8px;top:50%;transform:translateY(-50%);display:grid;place-items:center;width:34px;height:34px;border:0;border-radius:50%;background:none;color:#fff;cursor:pointer}
+.lgeye:hover{background:rgba(255,255,255,.1)}
+.lgeye:focus-visible,.lgl:focus-visible,.lgbtn:focus-visible{outline:2px solid #45f3ff;outline-offset:2px}
+.lgeye svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.lgbtn{margin-top:2px;padding:12px;border:0;border-radius:999px;background:#45f3ff;color:#111;font:600 15px Poppins,"Segoe UI",sans-serif;cursor:pointer;transition:box-shadow .25s,transform .25s}
+.lgbtn:hover{box-shadow:0 0 22px rgba(69,243,255,.6);transform:translateY(-1px)}
+.lgbtn:disabled{opacity:.6;cursor:wait;transform:none;box-shadow:none}
+.lgmsg{min-height:20px;font-size:13px;line-height:1.4;text-align:center;color:#ff7aa0}
+.lgmsg.i{color:#9fe9f0}
+.lglinks{display:flex;justify-content:space-between;font-size:14px}
+.lgl{border:0;background:none;padding:0;color:#fff;font:inherit;cursor:pointer}
+.lgl.p{color:#ff2770;font-weight:600}
+.lgfoot{margin:0;text-align:center;font-size:12.5px;color:#a9a0e6}
+.lgshake{animation:lgsh .4s}
+@keyframes lgsh{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+@media(max-width:420px){.lgpanel{padding:26px 18px 18px}.lgt{font-size:19px}}
+/* ===== Akun ===== */
+.lgchip{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.lgchip span{display:block;line-height:1.2;text-align:right}
+.lgchip b{display:block;font-size:14px}
+.lgchip small{font-size:12px;color:var(--mu)}
+#lgpd{border:1px solid var(--bd);border-radius:10px;background:var(--sf);color:var(--tx);padding:20px;width:min(360px,92vw)}
+#lgpd::backdrop{background:rgba(5,4,30,.6)}
+#lgpd h2{margin:0 0 12px;font:700 17px Georgia,serif}
+#lgpd .fl{margin-bottom:10px}
+#lgpe{min-height:18px;font-size:13px;color:var(--wr);margin:0 0 4px}
+@media print{#lg,#lgpd{display:none!important}}
+</style></head><body class="locked">
+<div id="lg" role="dialog" aria-labelledby="lgh">
+<div class="lgbg"><i></i><i></i><i></i></div>
+<div class="lgcol">
+<div class="lgbrand"><span>e</span><div><b>e-Rapor SD</b><small>Kurikulum Merdeka</small></div></div>
+<div class="lgwrap"><div class="lgglow"></div><div class="lgbox"><div class="lgplate">
+<form class="lgpanel" id="lgf" onsubmit="lgGo(event)" novalidate>
+<h3 class="lgt" id="lgh"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>LOGIN<svg class="h" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.5-9.2C1.2 8.6 3 5 6.5 5c2 0 3.5 1 5.5 3 2-2 3.5-3 5.5-3C21 5 22.800 8.600 21.500 11.800 19.500 16.400 12 21 12 21z"/></svg></h3>
+<div class="lgin"><input id="lgu" type="text" placeholder="Username" aria-label="Username" autocomplete="username" autocapitalize="none" spellcheck="false"></div>
+<div class="lgin"><input id="lgp" class="pw" type="password" placeholder="Kata sandi" aria-label="Kata sandi" autocomplete="current-password"><button type="button" class="lgeye" id="lgey" aria-label="Tampilkan kata sandi" onclick="lgEye()"><svg viewBox="0 0 24 24"><path d="M2 12s3.600-7 10-7 10 7 10 7-3.600 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
+<button class="lgbtn" id="lgb" type="submit">Masuk</button>
+<div class="lgmsg" id="lgm" role="alert" aria-live="polite"></div>
+<div class="lglinks"><button type="button" class="lgl" onclick="lgInfo()">Lupa sandi?</button><button type="button" class="lgl p" onclick="lgInfo()">Hubungi admin</button></div>
+</form></div></div></div>
+<p class="lgfoot">Akun guru didaftarkan oleh admin sekolah.</p>
+</div></div>
+<dialog id="lgpd"><form onsubmit="lgPwGo(event)" novalidate>
+<h2 id="lgpt">Ganti kata sandi</h2>
+<div class="fl" id="lgpow"><label for="lgpo">Kata sandi saat ini</label><input id="lgpo" type="password" autocomplete="current-password"></div>
+<div class="fl"><label for="lgpn">Kata sandi baru (minimal 6 karakter)</label><input id="lgpn" type="password" autocomplete="new-password"></div>
+<div class="fl"><label for="lgpc">Ulangi kata sandi baru</label><input id="lgpc" type="password" autocomplete="new-password"></div>
+<p id="lgpe" role="alert"></p>
+<div class="row"><button class="btn" type="submit">Simpan sandi</button><button class="btn s" type="button" onclick="$('#lgpd').close()">Batal</button></div>
+</form></dialog>
+
 <nav id="side"></nav>
 <div class="wrap"><header class="top noprint" id="top"></header>
 <main id="app"></main></div><style id="pgs"></style><script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -371,5 +457,60 @@ p3.insertBefore(last,ref);ref=last}
 if(p3){const c=p3.children[2];if(c&&c.classList.contains('gap'))c.remove();const l3=[...p3.children].filter(e=>!e.classList.contains('ft')).pop();if(bot(l3,p3)>lim)warn=true}});
 if(W&&warn)W.textContent='Isi rapor sangat panjang dan masih melewati batas halaman. Pilih jarak Rapat, kecilkan margin, atau kecilkan ruang aman bawah.'}
 function draw(){if(tab!='siswa')editId=null;applyPaper();nav();$('#app').innerHTML=V[tab]();if(tab=='cetak')fitPages();window.scrollTo(0,0)}
-draw();
+/* ===== Login dan akun ===== */
+TABS.push(['guru','12. Kelola Guru']);
+IC.guru='<circle cx="12" cy="8" r="3.5"/><path d="M5 21a7 7 0 0114 0M19 8v6M22 11h-6"/>';
+(function(){
+const AK='rapor_sd_auth_v1',SK='rapor_sd_sess';
+let A=null,ME=null,fails=0,lockUntil=0,eyeOn=false;
+const rs=()=>{try{const a=new Uint8Array(8);crypto.getRandomValues(a);return [...a].map(x=>x.toString(16).padStart(2,'0')).join('')}catch(e){return Math.random().toString(16).slice(2,12)}};
+async function hs(p,s,alg){const t=s+'|'+p;if(alg=='s'){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t));return 's:'+[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
+let h1=0xdeadbeef,h2=0x41c6ce57;for(let i=0;i<t.length;i++){const c=t.charCodeAt(i);h1=Math.imul(h1^c,2654435761);h2=Math.imul(h2^c,1597334677)}
+h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);
+return 'f:'+(4294967296*(2097151&h2)+(h1>>>0)).toString(16)}
+const algNow=()=>(window.crypto&&crypto.subtle)?'s':'f';
+const newHash=(p,s)=>hs(p,s,algNow());
+function svA(){try{localStorage.setItem(AK,JSON.stringify(A))}catch(e){}}
+function ldA(){try{const j=JSON.parse(localStorage.getItem(AK));if(j&&Array.isArray(j.u)&&j.u.some(x=>x&&x.role=='admin'))return j}catch(e){}return null}
+const msg=(t,info)=>{const m=$('#lgm');m.textContent=t;m.className='lgmsg'+(info?' i':'')};
+function setGRP(){GRP[4]=ME&&ME.role=='admin'?['SISTEM','cadang','guru']:['SISTEM','cadang']}
+function showLogin(){ME=null;document.body.classList.add('locked');$('#side').innerHTML='';$('#top').innerHTML='';$('#app').innerHTML='';$('#lgu').value='';$('#lgp').value='';msg('');eyeOn=true;lgEye();setTimeout(()=>{try{$('#lgu').focus()}catch(e){}},50)}
+function enter(acc,restore){ME=acc;try{sessionStorage.setItem(SK,acc.id)}catch(e){}document.body.classList.remove('locked');setGRP();tab='home';draw();if(acc.def&&!restore)window.lgPw(acc.id,true)}
+window.lgEye=function(){eyeOn=!eyeOn;$('#lgp').type=eyeOn?'text':'password';$('#lgey').setAttribute('aria-label',eyeOn?'Sembunyikan kata sandi':'Tampilkan kata sandi')};
+window.lgInfo=function(){msg('Minta admin sekolah mereset kata sandi Anda di menu Kelola Guru.',true)};
+window.lgGo=async function(e){e.preventDefault();const u=$('#lgu').value.trim().toLowerCase(),p=$('#lgp').value,b=$('#lgb'),f=$('#lgf');
+if(Date.now()<lockUntil){msg('Terlalu banyak percobaan. Coba lagi dalam '+Math.ceil((lockUntil-Date.now())/1000)+' detik.');return}
+if(!u||!p){msg('Isi username dan kata sandi.');return}
+b.disabled=true;let ok=false,acc=A.u.find(x=>x.user==u);
+if(acc){try{ok=(await hs(p,acc.salt,acc.h.charAt(0)))===acc.h}catch(er){ok=false}}
+b.disabled=false;
+if(!ok){fails++;if(fails>=5){fails=0;lockUntil=Date.now()+30000}msg('Username atau kata sandi salah.');f.classList.remove('lgshake');void f.offsetWidth;f.classList.add('lgshake');$('#lgp').value='';$('#lgp').focus();return}
+fails=0;enter(acc)};
+window.lgOut=function(){try{sessionStorage.removeItem(SK)}catch(e){}showLogin()};
+let pwT=null;
+window.lgPw=function(id,first){const u=A.u.find(x=>x.id==id);if(!u)return;const self=!!ME&&u.id==ME.id;pwT=u.id;
+$('#lgpt').textContent=self?'Ganti kata sandi':'Reset sandi: '+u.nama;$('#lgpow').style.display=self?'':'none';
+['lgpo','lgpn','lgpc'].forEach(i=>$('#'+i).value='');$('#lgpe').textContent=first?'Sandi bawaan admin masih dipakai. Sebaiknya ganti sekarang.':'';$('#lgpd').showModal()};
+window.lgPwGo=async function(e){e.preventDefault();const u=A.u.find(x=>x.id==pwT),er=$('#lgpe');if(!u)return;const self=ME&&u.id==ME.id,n=$('#lgpn').value;
+if(self){let ok=false;try{ok=(await hs($('#lgpo').value,u.salt,u.h.charAt(0)))===u.h}catch(x){}if(!ok){er.textContent='Kata sandi saat ini salah.';return}}
+if(n.length<6){er.textContent='Kata sandi baru minimal 6 karakter.';return}
+if(n!==$('#lgpc').value){er.textContent='Ulangi kata sandi tidak sama.';return}
+u.salt=rs();u.h=await newHash(n,u.salt);delete u.def;svA();$('#lgpd').close();alert(self?'Kata sandi diubah.':'Kata sandi '+u.nama+' direset. Beritahukan sandi baru kepada guru.');if(tab=='guru')draw()};
+window.lgAdd=async function(){const nm=$('#gn').value.trim(),us=$('#gu').value.trim().toLowerCase(),pw=$('#gp').value;
+if(!nm){alert('Nama lengkap wajib diisi.');return}
+if(!/^[a-z0-9._-]{3,20}$/.test(us)){alert('Username 3 sampai 20 karakter: huruf kecil, angka, titik, garis bawah, atau strip.');return}
+if(A.u.some(x=>x.user==us)){alert('Username sudah dipakai.');return}
+if(pw.length<6){alert('Kata sandi minimal 6 karakter.');return}
+const s=rs();A.u.push({id:'u'+Date.now().toString(36)+rs().slice(0,4),nama:nm,user:us,role:'guru',salt:s,h:await newHash(pw,s)});svA();alert('Guru didaftarkan. Sampaikan username dan kata sandi awal kepada guru yang bersangkutan.');draw()};
+window.lgDel=function(id){const u=A.u.find(x=>x.id==id);if(!u||u.role=='admin')return;if(!confirm('Hapus akun '+u.nama+'? Data rapor tidak ikut terhapus.'))return;A.u=A.u.filter(x=>x.id!=id);svA();draw()};
+V.guru=function(){if(!ME||ME.role!='admin')return '';const warn=ME.def?`<div class="card" style="border-color:var(--wr)"><h2 style="color:var(--wr)">Ganti sandi admin</h2><p class="hint">Sandi bawaan admin masih dipakai. Tekan Ganti sandi pada baris admin di bawah.</p></div>`:'';
+return warn+`<div class="card scroll"><h2>Daftar akun</h2><table class="l"><tr><th>Nama</th><th>Username</th><th>Peran</th><th></th></tr>${A.u.map(u=>`<tr><td>${esc(u.nama)}</td><td>${esc(u.user)}</td><td>${u.role=='admin'?'Admin':'Guru'}</td><td style="text-align:right;white-space:nowrap"><button class="btn s" onclick="lgPw('${esc(u.id)}')">${ME&&u.id==ME.id?'Ganti sandi':'Reset sandi'}</button>${u.role=='admin'?'':` <button class="btn d" onclick="lgDel('${esc(u.id)}')">Hapus</button>`}</td></tr>`).join('')}</table></div>
+<div class="card"><h2>Daftarkan guru baru</h2><div class="g"><div><label>Nama lengkap</label><input id="gn" autocomplete="off"></div><div><label>Username</label><input id="gu" autocomplete="off" placeholder="contoh: budi.santoso"></div><div><label>Kata sandi awal (minimal 6 karakter)</label><input id="gp" type="text" autocomplete="off"></div></div><div class="row"><button class="btn" onclick="lgAdd()">Daftarkan guru</button></div><p class="hint">Akun tersimpan di peramban ini, terpisah dari data rapor, jadi tidak ikut tertimpa saat restore backup. Guru perlu membuka aplikasi di perangkat dan peramban yang sama.</p></div>`};
+const _d=draw;draw=function(){if(!ME)return;if(tab=='guru'&&ME.role!='admin')tab='home';_d()};
+const _t=drawTop;drawTop=function(){_t();if(!ME)return;$('#top').insertAdjacentHTML('beforeend',`<div class="lgchip"><span><b>${esc(ME.nama)}</b><small>${ME.role=='admin'?'Admin':'Guru'}</small></span><button class="btn s" onclick="lgPw('${esc(ME.id)}')">Ganti sandi</button><button class="btn s" onclick="lgOut()">Keluar</button></div>`)};
+(async function boot(){A=ldA();
+if(!A){const s=rs();A={u:[{id:'u0',nama:'Administrator',user:'admin',role:'admin',salt:s,h:await newHash('admin123',s),def:1}]};svA()}
+let id=null;try{id=sessionStorage.getItem(SK)}catch(e){}
+const acc=A.u.find(x=>x.id==id);if(acc)enter(acc,true);else showLogin()})();
+})();
 </script></body></html>
