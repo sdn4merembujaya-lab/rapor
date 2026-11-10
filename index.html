@@ -752,6 +752,13 @@ window.__buildWord=build;
 .pasbox{border:1px solid var(--bd);border-radius:12px;padding:16px 18px;margin-bottom:16px;background:var(--sf)}
 .pasbox h2{margin:0 0 6px;font:700 17px Georgia,serif;color:var(--ac)}
 .pasbox ol{margin:8px 0 0;padding-left:20px;font-size:13px;color:var(--mu);line-height:1.55}
+.pasg{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:12px}
+.pst{display:flex;flex-direction:column;gap:8px;border:1px solid var(--bd);border-radius:10px;padding:12px 14px}
+.pst b{font-size:14px}.pst span{font-size:12.5px;color:var(--mu);line-height:1.45;flex:1}
+.pst .btn{width:100%;margin:0}
+.pin{display:flex;gap:8px;align-items:end}.pin>div{flex:1;min-width:0}.pin input{width:100%}.pin .btn{width:auto}
+label.pchk{display:flex!important;align-items:center;gap:8px;margin:14px 0 0;font-size:13px;color:var(--tx);cursor:pointer}
+label.pchk input{width:16px!important;height:16px;margin:0;flex:none}
 #pasmsg{margin:10px 0 0;font-size:13px;min-height:18px;color:var(--ac);font-weight:600}
 body.guide .page::before{content:"";position:absolute;left:var(--ml);right:var(--mr);top:var(--mt);bottom:var(--mb);border:1px dashed #d33;pointer-events:none}
 body.guide .page::after{content:"";position:absolute;left:0;right:0;bottom:calc(var(--mb) + var(--safe,15mm));border-top:1px dashed #27c;pointer-events:none}
@@ -820,10 +827,14 @@ V.cetak=function(){
  const out=_c.call(V),r=document.documentElement.style;
  r.setProperty('--safe',(C().safe==null?15:+C().safe)+'mm');
  document.body.classList.toggle('guide',!!C().guide);
- const p=`<div class="pasbox noprint"><h2>Cetak F4 pas</h2><p class="hint" style="margin:0">Tiga langkah supaya hasil cetak sama dengan tampilan di layar.</p>
- <div class="row"><button class="btn" onclick="pasAuto()">1. Pas-kan otomatis ke F4</button><button class="btn s" onclick="pasUji()">2. Cetak lembar uji F4</button><div><label>Angka mm terakhir yang tercetak utuh</label><input id="pasv" type="number" min="150" max="330" style="width:110px" placeholder="mis. 297" value="${C().pa==null?'':C().pa}"></div><button class="btn s" onclick="pasPA()">Terapkan</button><button class="btn" onclick="pasCetak()">3. Cetak F4 sekarang</button><label style="display:flex;gap:6px;align-items:center;margin:0"><input type="checkbox" ${C().guide?'checked':''} onchange="pasGuide(this.checked)"> Garis bantu margin (merah) dan ruang aman (biru)</label></div>
- <p id="pasmsg"></p>
- <ol><li>Langkah 1 memilih huruf dan jarak baris terbesar yang masih muat dalam 2 halaman untuk semua siswa, tanpa menambah ukuran huruf di atas pilihan Anda.</li><li>Langkah 2 mencetak penggaris. Jika bagian bawah kertas tidak ikut tercetak, isi angka terakhir yang terbaca lalu tekan Terapkan.</li><li>Di dialog cetak: kertas F4, Folio, atau Legal, Margin None, Skala 100%, Header dan footer mati, Background graphics hidup.</li></ol></div>`;
+ const p=`<div class="pasbox noprint"><h2>Cetak F4 pas</h2><p class="hint" style="margin:0">Ikuti urutan 1 sampai 3 agar hasil cetak sama dengan tampilan di layar.</p>
+ <div class="pasg">
+ <div class="pst"><b>1. Pas-kan isi</b><span>Memilih huruf dan jarak baris terbesar yang masih muat dalam 2 halaman untuk semua siswa. Huruf tidak dinaikkan di atas pilihan Anda.</span><button class="btn" onclick="pasAuto()">Pas-kan otomatis ke F4</button></div>
+ <div class="pst"><b>2. Uji printer</b><span>Cetak penggaris. Jika bawah kertas tidak tercetak, isi angka mm terakhir yang terbaca utuh.</span><button class="btn s" onclick="pasUji()">Cetak lembar uji F4</button><div class="pin"><div><label>Angka mm terakhir</label><input id="pasv" type="number" min="150" max="330" placeholder="mis. 297" value="${C().pa==null?'':C().pa}"></div><button class="btn s" onclick="pasPA()">Terapkan</button></div></div>
+ <div class="pst"><b>3. Cetak</b><span>Di dialog cetak: kertas F4, Folio, atau Legal; Margin None; Skala 100%; Header dan footer mati; Background graphics hidup.</span><button class="btn" onclick="pasCetak()">Cetak F4 sekarang</button></div>
+ </div>
+ <label class="pchk"><input type="checkbox" ${C().guide?'checked':''} onchange="pasGuide(this.checked)"><span>Tampilkan garis bantu di layar: margin (merah) dan ruang aman bawah (biru)</span></label>
+ <p id="pasmsg"></p></div>`;
  return out.includes('<div class="scroll">')?out.replace('<div class="scroll">',p+'<div class="scroll">'):out+p;
 };
 })();
