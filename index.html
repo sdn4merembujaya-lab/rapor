@@ -445,7 +445,7 @@ lain(){const s=curSis();if(!s)return bar()+stuPick();const d=D(s);return bar()+s
 <div class="card"><h2>Ketidakhadiran (hari)</h2><div class="g">${[['s','Sakit'],['i','Izin'],['a','Tanpa keterangan']].map(a=>`<div><label>${a[1]}</label><input type="number" min="0" value="${d.h[a[0]]}" onchange="D(curSis()).h.${a[0]}=+this.value||0;save()"></div>`).join('')}</div></div>
 <div class="card"><h2>7 Kebiasaan anak Indonesia hebat</h2><div class="g">${KEB.map((k,i)=>`<div><label>${k}</label><select onchange="D(curSis()).k[${i}]=this.value;save()">${KAT.map(x=>`<option ${x==d.k[i]?'selected':''}>${x}</option>`).join('')}</select></div>`).join('')}</div></div>
 <div class="card"><h2>Catatan wali kelas</h2><textarea onchange="D(curSis()).saran=this.value;save()">${esc(d.saran)}</textarea></div>`},
-cetak(){const l=kelasSiswa(),s=curSis();return bar()+`<div class="card noprint"><div class="row"><div><label>Siswa</label><select id="ps" onchange="sel=this.value;draw()">${l.map(x=>`<option value="${x.id}" ${s&&x.id==s.id?'selected':''}>${esc(x.nama)}</option>`).join('')}</select></div><div><label>Ukuran kertas</label><select onchange="C().paper=this.value;save();draw()">${[['A4','A4 (210 x 297)'],['F4','F4 (210 x 330)'],['FO','Folio / 8.5 x 13 in (216 x 330)'],['LG','Legal (216 x 356)']].map(x=>`<option value="${x[0]}" ${(C().paper||'A4')==x[0]?'selected':''}>${x[1]}</option>`).join('')}</select></div><div><label>Jenis huruf</label><select onchange="C().font=this.value;save();draw()">${sel2(Object.keys(FONTS),C().font||'Calibri')}</select></div><div><label>Ukuran huruf (pt)</label><select onchange="C().fs=+this.value;save();draw()">${sel2(['8','9','10','11','12'],String(C().fs||10))}</select></div><div><label>Maks. mapel di halaman 1</label><select onchange="C().ppA=this.value=='Otomatis'?'':+this.value;save();draw()">${['Otomatis'].concat(mapelList().map((x,i)=>i+1)).map(x=>`<option ${(C().ppA?+C().ppA:'Otomatis')==x?'selected':''}>${x}</option>`).join('')}</select></div><div><label>Margin kiri (mm)</label><input type="number" min="0" max="60" style="width:90px" value="${C().mL==null?15:C().mL}" onchange="C().mL=+this.value;save();draw()"></div><div><label>Margin kanan (mm)</label><input type="number" min="0" max="60" style="width:90px" value="${C().mR==null?15:C().mR}" onchange="C().mR=+this.value;save();draw()"></div><div><label>Margin atas (mm)</label><input type="number" min="0" max="60" style="width:90px" value="${C().mT==null?12:C().mT}" onchange="C().mT=+this.value;save();draw()"></div><div><label>Margin bawah (mm)</label><input type="number" min="0" max="60" style="width:90px" value="${C().mB==null?18:C().mB}" onchange="C().mB=+this.value;save();draw()"></div><div><label>Tinggi area cetak printer (mm)</label><input type="number" min="150" max="330" style="width:90px" placeholder="otomatis" value="${C().pa==null?'':C().pa}" onchange="C().pa=this.value===''?null:+this.value;save();draw()"></div><div><label>Jarak footer dari bawah (mm)</label><input type="number" min="0" max="60" style="width:90px" placeholder="otomatis" value="${C().fb==null?'':C().fb}" onchange="C().fb=this.value===''?null:+this.value;save();draw()"></div><div><label>Ruang aman bawah (mm)</label><input type="number" min="0" max="60" style="width:90px" value="${C().safe==null?15:C().safe}" onchange="C().safe=+this.value;save();draw()"></div><div><label>Jarak baris</label><select onchange="C().jarak=this.value;save();draw()">${sel2(['Rapat','Normal','Longgar'],C().jarak||'Rapat')}</select></div><div><label>Halaman identitas di depan rapor</label><select onchange="C().withId=this.value=='Ya';save();draw()">${sel2(['Tidak','Ya'],C().withId?'Ya':'Tidak')}</select></div><button class="btn" onclick="window.print()">Cetak rapor ini</button><button class="btn s" onclick="allP=true;draw();setTimeout(()=>{window.print();allP=false;draw()},300)">Cetak semua siswa kelas ini</button><button class="btn s" onclick="unduhPDF(this,false)">Unduh PDF (rapor ini)</button><button class="btn s" onclick="unduhPDF(this,true)">Unduh PDF (semua siswa)</button></div><p class="hint">Ukuran kertas: A4 = 210 x 297 mm, F4 = 210 x 330 mm (di sebagian printer disebut Folio, 8,5 x 13 in). Kalau hasil cetak terpotong, penyebab paling sering adalah ukuran kertas di dialog cetak berbeda dengan pilihan di sini (misalnya aplikasi F4 tetapi dialog A4). Pilih ukuran yang sama; bila F4 tidak ada di daftar, pilih Legal atau Folio. Atur Margins = None, Scale = 100, dan matikan Headers and footers. Alternatifnya, tombol Unduh PDF membuat PDF dengan ukuran kertas yang pas; cetak PDF itu dengan Scale = 100% atau Actual size. Margin bawah juga menjadi tempat footer halaman. Kalau printer hanya mencetak sebagian kertas F4 (misalnya 297 mm) sehingga bawahnya kosong, isi <b>Tinggi area cetak printer</b> dengan angka itu: isi rapor digeser turun agar jarak atas dan bawah di kertas sama.</p><p class="hint" id="fitwarn" style="color:var(--wr)"></p></div>`+(s?`<div class="scroll">${(allP?l:[s]).map(rapor).join('')}</div>`:'<div class="card">Belum ada siswa.</div>')},
+cetak(){const l=kelasSiswa(),s=curSis();return bar()+`<div class="card noprint"><div class="row"><div><label>Siswa</label><select id="ps" onchange="sel=this.value;draw()">${l.map(x=>`<option value="${x.id}" ${s&&x.id==s.id?'selected':''}>${esc(x.nama)}</option>`).join('')}</select></div><div><label>Ukuran kertas</label><select onchange="C().paper=this.value;save();draw()">${[['A4','A4 (210 x 297)'],['F4','F4 (210 x 330)'],['FO','Folio / 8.5 x 13 in (216 x 330)'],['LG','Legal (216 x 356)']].map(x=>`<option value="${x[0]}" ${(C().paper||'A4')==x[0]?'selected':''}>${x[1]}</option>`).join('')}</select></div><div><label>Jenis huruf</label><select onchange="C().font=this.value;save();draw()">${sel2(Object.keys(FONTS),C().font||'Calibri')}</select></div><div><label>Ukuran huruf (pt)</label><select onchange="C().fs=+this.value;save();draw()">${sel2(['8','9','10','11','12'],String(C().fs||10))}</select></div><div><label>Maks. mapel di halaman 1</label><select onchange="C().ppA=this.value=='Otomatis'?'':+this.value;save();draw()">${['Otomatis'].concat(mapelList().map((x,i)=>i+1)).map(x=>`<option ${(C().ppA?+C().ppA:'Otomatis')==x?'selected':''}>${x}</option>`).join('')}</select></div><div><label>Margin kiri (mm)</label><input type="number" min="0" max="60" style="width:90px" value="${C().mL==null?15:C().mL}" onchange="C().mL=+this.value;save();draw()"></div><div><label>Margin kanan (mm)</label><input type="number" min="0" max="60" style="width:90px" value="${C().mR==null?15:C().mR}" onchange="C().mR=+this.value;save();draw()"></div><div><label>Margin atas (mm)</label><input type="number" min="0" max="60" style="width:90px" value="${C().mT==null?12:C().mT}" onchange="C().mT=+this.value;save();draw()"></div><div><label>Margin bawah (mm)</label><input type="number" min="0" max="60" style="width:90px" value="${C().mB==null?18:C().mB}" onchange="C().mB=+this.value;save();draw()"></div><div><label>Tinggi area cetak printer (mm)</label><input type="number" min="150" max="330" style="width:90px" placeholder="otomatis" value="${C().pa==null?'':C().pa}" onchange="C().pa=this.value===''?null:+this.value;save();draw()"></div><div><label>Jarak footer dari bawah (mm)</label><input type="number" min="0" max="60" style="width:90px" placeholder="otomatis" value="${C().fb==null?'':C().fb}" onchange="C().fb=this.value===''?null:+this.value;save();draw()"></div><div><label>Ruang aman bawah (mm)</label><input type="number" min="0" max="60" style="width:90px" value="${C().safe==null?15:C().safe}" onchange="C().safe=+this.value;save();draw()"></div><div><label>Jarak baris</label><select onchange="C().jarak=this.value;save();draw()">${sel2(['Rapat','Normal','Longgar'],C().jarak||'Rapat')}</select></div><div><label>Halaman identitas di depan rapor</label><select onchange="C().withId=this.value=='Ya';save();draw()">${sel2(['Tidak','Ya'],C().withId?'Ya':'Tidak')}</select></div><button class="btn" onclick="window.print()">Cetak rapor ini</button><button class="btn s" onclick="allP=true;draw();setTimeout(()=>{window.print();allP=false;draw()},300)">Cetak semua siswa kelas ini</button><button class="btn s" onclick="unduhPDF(this,false)">Unduh PDF (rapor ini)</button><button class="btn s" onclick="unduhPDF(this,true)">Unduh PDF (semua siswa)</button><button class="btn s" onclick="unduhWord(false)">Unduh Word (rapor ini)</button><button class="btn s" onclick="unduhWord(true)">Unduh Word (semua siswa)</button></div><p class="hint">Ukuran kertas: A4 = 210 x 297 mm, F4 = 210 x 330 mm (di sebagian printer disebut Folio, 8,5 x 13 in). Kalau hasil cetak terpotong, penyebab paling sering adalah ukuran kertas di dialog cetak berbeda dengan pilihan di sini (misalnya aplikasi F4 tetapi dialog A4). Pilih ukuran yang sama; bila F4 tidak ada di daftar, pilih Legal atau Folio. Atur Margins = None, Scale = 100, dan matikan Headers and footers. Alternatifnya, tombol Unduh PDF membuat PDF dengan ukuran kertas yang pas; cetak PDF itu dengan Scale = 100% atau Actual size. Margin bawah juga menjadi tempat footer halaman. Kalau printer hanya mencetak sebagian kertas F4 (misalnya 297 mm) sehingga bawahnya kosong, isi <b>Tinggi area cetak printer</b> dengan angka itu: isi rapor digeser turun agar jarak atas dan bawah di kertas sama.</p><p class="hint" id="fitwarn" style="color:var(--wr)"></p></div>`+(s?`<div class="scroll">${(allP?l:[s]).map(rapor).join('')}</div>`:'<div class="card">Belum ada siswa.</div>')},
 cadang(){return `<div class="card"><h2>Backup dan restore</h2><p class="hint">Backup menyimpan seluruh data ke satu file di perangkat ini. Restore memulihkan data dari file backup tersebut.</p><div class="row"><button class="btn" onclick="doBackup()">Backup</button><button class="btn s" onclick="$('#rf').click()">Restore</button><input id="rf" type="file" accept=".json,application/json" style="display:none" onchange="doRestore(this)"><button class="btn d" onclick="if(confirm('Hapus semua data di perangkat ini?')){db=def();save();draw()}">Hapus semua data</button></div></div>`}};
 let allP=false,mi=0;
 function autoFill(m,n){const l=tpList(m),k=C().kktp||75,sc=[],w=C().bobot==null?30:C().bobot;l.forEach((t,j)=>{const x=parseFloat((n.t||[])[j]);if(!isNaN(x))sc.push([t,x])});const s=parseFloat(n.s),a=sc.length?sc.reduce((p,q)=>p+q[1],0)/sc.length:NaN;if(!n.ov&&!(isNaN(s)&&isNaN(a)))n.v=isNaN(s)?Math.round(a):isNaN(a)?Math.round(s):Math.round(a*(100-w)/100+s*w/100);if(!n.man&&sc.length){n.a=sc.filter(x=>x[1]>=k).map(x=>x[0]).join('; ');n.b=sc.filter(x=>x[1]<k).map(x=>x[0]).join('; ')}}
@@ -671,4 +671,161 @@ if(!A){const s=rs();A={u:[{id:'u0',nama:'Administrator',user:'admin',role:'admin
 let id=null;try{id=sessionStorage.getItem(SK)}catch(e){}
 const acc=A.u.find(x=>x.id==id);if(acc)enter(acc,true);else showLogin()})();
 })();
-</script></body></html>
+</script><script>
+/* ===== Unduh Word (.docx) tanpa pustaka tambahan ===== */
+(function(){
+function crc32(b){let t=crc32.t;if(!t){t=crc32.t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}}let r=-1;for(let i=0;i<b.length;i++)r=t[(r^b[i])&255]^(r>>>8);return(r^-1)>>>0}
+function zipStore(files){const enc=new TextEncoder(),parts=[],cen=[];let off=0;const u16=v=>[v&255,(v>>8)&255],u32=v=>[v&255,(v>>8)&255,(v>>16)&255,(v>>>24)&255];
+files.forEach(f=>{const nm=enc.encode(f.name),d=enc.encode(f.data),crc=crc32(d),sz=d.length;
+const lh=new Uint8Array([0x50,0x4b,3,4,...u16(20),...u16(0x0800),...u16(0),...u16(0),...u16(0x21),...u32(crc),...u32(sz),...u32(sz),...u16(nm.length),...u16(0)]);
+parts.push(lh,nm,d);cen.push({nm,crc,sz,off});off+=lh.length+nm.length+sz});
+let cl=0;const cp=[];cen.forEach(c=>{const h=new Uint8Array([0x50,0x4b,1,2,...u16(20),...u16(20),...u16(0x0800),...u16(0),...u16(0),...u16(0x21),...u32(c.crc),...u32(c.sz),...u32(c.sz),...u16(c.nm.length),...u16(0),...u16(0),...u16(0),...u16(0),...u32(0),...u32(c.off)]);cp.push(h,c.nm);cl+=h.length+c.nm.length});
+const end=new Uint8Array([0x50,0x4b,5,6,...u16(0),...u16(0),...u16(cen.length),...u16(cen.length),...u32(cl),...u32(off),...u16(0)]);
+return new Blob([...parts,...cp,end],{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'})}
+const esc=x=>String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const tw=mm=>Math.round(mm/25.4*1440);
+function build(pages){
+const c=C(),[PW,PH]=pdim(),dx=(PW-210)/2,j=JARAK[c.jarak]||JARAK.Rapat,FN=c.font||'Calibri',SZ=Math.round((+c.fs||10)*2),LN=Math.round(240*parseFloat(j[0]));
+const num=(v,d)=>(v==null||v===''||isNaN(+v)?d:Math.max(0,Math.min(60,+v)));
+const mL=tw(num(c.mL,15)+dx),mR=tw(num(c.mR,15)+dx),mT=tw(num(c.mT,12)),mB=tw(num(c.mB,18)),fb=tw(c.fb==null||c.fb===''||isNaN(+c.fb)?num(c.mT,12):num(c.fb,12));
+const W=tw(PW),H=tw(PH),CW=W-mL-mR,cp=(j[1].match(/[\d.]+/g)||[2,5]).map(Number),cpv=Math.round(cp[0]*15),cph=Math.round(cp[1]*15);
+const fnt=`<w:rFonts w:ascii="${esc(FN)}" w:hAnsi="${esc(FN)}" w:cs="${esc(FN)}" w:eastAsia="${esc(FN)}"/>`;
+const run=(t,f)=>`<w:r><w:rPr>${fnt}${f.b?'<w:b/>':''}${f.u?'<w:u w:val="single"/>':''}<w:sz w:val="${f.sz||SZ}"/><w:szCs w:val="${f.sz||SZ}"/></w:rPr><w:t xml:space="preserve">${esc(t)}</w:t></w:r>`;
+const para=(runs,o={})=>`<w:p><w:pPr>${o.pb||''}<w:spacing w:before="${o.before||0}" w:after="${o.after||0}" w:line="${o.line||LN}" w:lineRule="auto"/>${o.jc?`<w:jc w:val="${o.jc}"/>`:''}${o.rpr||''}</w:pPr>${runs}</w:p>`;
+function lines(n){const L=[[]];const w=(x,f)=>{x.childNodes.forEach(k=>{if(k.nodeType==3){let t=k.textContent.replace(/\s+/g,' ');const cur=L[L.length-1];if(!cur.length)t=t.replace(/^ /,'');if(t)cur.push([t,f])}else if(k.nodeName=='BR'){L.push([])}else if(k.nodeName=='DIV'||k.nodeName=='P'){if(L[L.length-1].length)L.push([]);w(k,f);L.push([])}else w(k,{b:f.b||k.nodeName=='B'||k.nodeName=='TH',u:f.u||k.nodeName=='U'})})};w(n,{b:n.nodeName=='TH'});while(L.length>1&&!L[L.length-1].length)L.pop();return L}
+function table(t){const cls=t.className,bordered=cls=='bt',rows=[...t.rows];
+let tbw=CW;const sw=t.style.width;if(/%$/.test(sw))tbw=Math.round(CW*parseFloat(sw)/100);
+let best=rows[0];rows.forEach(r=>{const s=[...r.cells].reduce((a,x)=>a+x.colSpan,0);const sb=[...best.cells].reduce((a,x)=>a+x.colSpan,0);if(s>sb)best=r});
+const ncol=[...best.cells].reduce((a,x)=>a+x.colSpan,0);let widths=[],used=0,free=0;
+[...best.cells].forEach(x=>{const p=parseFloat(x.getAttribute('width'));if(x.colSpan==1){if(p){widths.push(Math.round(tbw*p/100));used+=widths[widths.length-1]}else{widths.push(0);free++}}else{widths.push(0);free++}});
+if(!free&&widths.length<ncol)free=0;widths=widths.map(w=>w||Math.floor((tbw-used)/Math.max(1,free)));
+let cols=[];[...best.cells].forEach((x,i)=>{for(let k=0;k<x.colSpan;k++)cols.push(Math.floor(widths[i]/x.colSpan))});
+const sum=cols.reduce((a,b)=>a+b,0);cols[cols.length-1]+=tbw-sum;
+const bd=bordered?'<w:top w:val="single" w:sz="6" w:color="000000"/><w:left w:val="single" w:sz="6" w:color="000000"/><w:bottom w:val="single" w:sz="6" w:color="000000"/><w:right w:val="single" w:sz="6" w:color="000000"/><w:insideH w:val="single" w:sz="6" w:color="000000"/><w:insideV w:val="single" w:sz="6" w:color="000000"/>':'<w:top w:val="nil"/><w:left w:val="nil"/><w:bottom w:val="nil"/><w:right w:val="nil"/><w:insideH w:val="nil"/><w:insideV w:val="nil"/>';
+const mv=bordered?cpv:30,mh=bordered?cph:60;
+let x=`<w:tbl><w:tblPr><w:tblW w:w="${tbw}" w:type="dxa"/><w:tblBorders>${bd}</w:tblBorders><w:tblLayout w:type="fixed"/><w:tblCellMar><w:top w:w="${mv}" w:type="dxa"/><w:left w:w="${mh}" w:type="dxa"/><w:bottom w:w="${mv}" w:type="dxa"/><w:right w:w="${mh}" w:type="dxa"/></w:tblCellMar></w:tblPr><w:tblGrid>${cols.map(w=>`<w:gridCol w:w="${w}"/>`).join('')}</w:tblGrid>`;
+rows.forEach(r=>{const hm=/height:\s*([\d.]+)px/.exec(r.cells[0].getAttribute('style')||'');let ci=0;
+x+=`<w:tr><w:trPr><w:cantSplit/>${hm?`<w:trHeight w:val="${Math.round(hm[1]*15)}" w:hRule="atLeast"/>`:''}</w:trPr>`;
+[...r.cells].forEach((td,idx)=>{const span=td.colSpan,w=cols.slice(ci,ci+span).reduce((a,b)=>a+b,0);ci+=span;
+const st=td.getAttribute('style')||'',isTh=td.nodeName=='TH',only=r.cells.length==1&&bordered,tall=/height/.test(st);
+let jc=isTh?'center':td.classList.contains('c')?'center':/text-align:\s*right/.test(st)?'right':cls=='ttd'?'center':(bordered&&(idx==3||only)&&r.cells.length>=1&&(idx==3||only))?'both':'left';
+const va=!bordered?(cls=='ttd'?'bottom':'top'):(only||tall)?'top':'center';
+x+=`<w:tc><w:tcPr><w:tcW w:w="${w}" w:type="dxa"/>${span>1?`<w:gridSpan w:val="${span}"/>`:''}${isTh?'<w:shd w:val="clear" w:color="auto" w:fill="E8E8E8"/>':''}<w:vAlign w:val="${va}"/></w:tcPr>`;
+const L=lines(td);x+=L.map(l=>para(l.map(([t,f])=>run(t,f)).join(''),{jc})).join('')+'</w:tc>'});
+x+='</w:tr>'});return x+'</w:tbl>'}
+function pageBody(p){let x='';const walk=el=>[...el.children].forEach(k=>{
+if(k.style&&k.style.display=='none')return;const n=k.nodeName,cl=k.className||'';
+if(n=='TABLE')x+=table(k);else if(n=='HR')x+=para('',{after:60,before:60,rpr:'<w:rPr><w:sz w:val="4"/></w:rPr>',pb:'<w:pBdr><w:bottom w:val="single" w:sz="8" w:space="1" w:color="000000"/></w:pBdr>'});
+else if(n=='H3')x+=para(run(k.textContent.trim(),{b:1,sz:28}),{jc:'center',after:120,before:0,line:Math.round(LN)});
+else if(cl=='ft')return;else if(/\bgap\b/.test(cl))x+=para('',{after:50,rpr:'<w:rPr><w:sz w:val="4"/></w:rPr>'});
+else if(k.querySelector&&k.querySelector('table'))walk(k);
+else if(k.textContent.trim())x+=lines(k).map(l=>para(l.map(([t,f])=>run(t,f)).join(''))).join('')});
+walk(p);return x}
+function footerXml(p){const sp=[...p.querySelectorAll('.ft span')].map(s=>s.textContent.trim());
+return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:ftr xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:p><w:pPr><w:pBdr><w:top w:val="single" w:sz="6" w:space="2" w:color="000000"/></w:pBdr><w:tabs><w:tab w:val="right" w:pos="${CW}"/></w:tabs><w:spacing w:before="0" w:after="0"/></w:pPr>${run(sp[0]||'',{sz:18})}<w:r><w:rPr>${fnt}<w:sz w:val="18"/></w:rPr><w:tab/></w:r>${run(sp[1]||'',{sz:18})}</w:p></w:ftr>`}
+const sect=i=>`<w:sectPr><w:footerReference w:type="default" r:id="rIdF${i}"/><w:pgSz w:w="${W}" w:h="${H}"/><w:pgMar w:top="${mT}" w:right="${mR}" w:bottom="${mB}" w:left="${mL}" w:header="0" w:footer="${fb}" w:gutter="0"/></w:sectPr>`;
+let body='';pages.forEach((p,i)=>{body+=pageBody(p);if(i<pages.length-1)body+=`<w:p><w:pPr><w:spacing w:before="0" w:after="0" w:line="20" w:lineRule="exact"/><w:rPr><w:sz w:val="2"/></w:rPr>${sect(i)}</w:pPr></w:p>`;else body+=`<w:p><w:pPr><w:spacing w:before="0" w:after="0" w:line="20" w:lineRule="exact"/><w:rPr><w:sz w:val="2"/></w:rPr></w:pPr></w:p>`});
+const NS='xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"';
+const doc=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document ${NS}><w:body>${body}${sect(pages.length-1)}</w:body></w:document>`;
+const files=[{name:'[Content_Types].xml',data:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/>${pages.map((p,i)=>`<Override PartName="/word/footer${i}.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.footer+xml"/>`).join('')}</Types>`},
+{name:'_rels/.rels',data:'<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>'},
+{name:'word/_rels/document.xml.rels',data:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rIdS" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>${pages.map((p,i)=>`<Relationship Id="rIdF${i}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/footer" Target="footer${i}.xml"/>`).join('')}</Relationships>`},
+{name:'word/styles.xml',data:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:docDefaults><w:rPrDefault><w:rPr>${fnt}<w:sz w:val="${SZ}"/><w:szCs w:val="${SZ}"/></w:rPr></w:rPrDefault><w:pPrDefault><w:pPr><w:spacing w:after="0" w:line="${LN}" w:lineRule="auto"/></w:pPr></w:pPrDefault></w:docDefaults><w:style w:type="paragraph" w:default="1" w:styleId="Normal"><w:name w:val="Normal"/></w:style></w:styles>`},
+{name:'word/document.xml',data:doc},...pages.map((p,i)=>({name:`word/footer${i}.xml`,data:footerXml(p)}))];
+return zipStore(files)}
+window.unduhWord=async function(all){
+const btns=[...document.querySelectorAll('button')].filter(b=>/Unduh Word/.test(b.textContent));btns.forEach(b=>b.disabled=true);
+try{if(all){allP=true;draw()}await new Promise(r=>setTimeout(r,200));
+const pages=[...document.querySelectorAll('.page')].filter(p=>/\bp[123]\b/.test(p.className));
+if(!pages.length){alert('Tidak ada halaman rapor untuk diunduh.');return}
+const blob=build(pages),sl=curSis(),a=document.createElement('a');a.href=URL.createObjectURL(blob);
+a.download='rapor-kelas'+C().kelas+(all||!sl?'':'-'+String(sl.nama).replace(/[^A-Za-z0-9]+/g,'_'))+'.docx';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500)}
+catch(e){console.error(e);alert('Gagal membuat file Word. Coba lagi, atau gunakan Unduh PDF.')}
+finally{if(all){allP=false;draw()}btns.forEach(b=>b.disabled=false)}};
+window.__buildWord=build;
+})();
+
+</script>
+<style id="pas-css">
+/* ===== Modul Cetak F4 Pas ===== */
+#kal{display:none}
+.pasbox{border:1px solid var(--bd);border-radius:12px;padding:16px 18px;margin-bottom:16px;background:var(--sf)}
+.pasbox h2{margin:0 0 6px;font:700 17px Georgia,serif;color:var(--ac)}
+.pasbox ol{margin:8px 0 0;padding-left:20px;font-size:13px;color:var(--mu);line-height:1.55}
+#pasmsg{margin:10px 0 0;font-size:13px;min-height:18px;color:var(--ac);font-weight:600}
+body.guide .page::before{content:"";position:absolute;left:var(--ml);right:var(--mr);top:var(--mt);bottom:var(--mb);border:1px dashed #d33;pointer-events:none}
+body.guide .page::after{content:"";position:absolute;left:0;right:0;bottom:calc(var(--mb) + var(--safe,15mm));border-top:1px dashed #27c;pointer-events:none}
+body.exp .page::before,body.exp .page::after{display:none!important}
+@media print{
+html,body{margin:0!important;padding:0!important;height:auto!important;overflow:visible!important;background:#fff!important}
+.wrap,main#app,.scroll{display:block!important;margin:0!important;padding:0!important;width:auto!important;max-width:none!important;overflow:visible!important;border:0!important;box-shadow:none!important;background:none!important}
+.page{height:calc(var(--ph,330mm) - 1.2mm)!important;min-height:0!important;overflow:hidden!important;margin:0!important;box-shadow:none!important;break-inside:avoid;page-break-inside:avoid;break-after:page;page-break-after:always;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.page::before,.page::after{display:none!important}
+.scroll>.page:last-child{break-after:auto;page-break-after:auto}
+.bt th{background:#e8e8e8!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.bt tr{break-inside:avoid;page-break-inside:avoid}
+body.kal>*:not(#kal):not(script):not(style){display:none!important}
+body.kal #kal{display:block!important;position:relative;width:210mm;height:328.8mm;overflow:hidden;color:#000;font:8pt Arial,sans-serif}
+}
+#kal i{position:absolute;font-style:normal;line-height:1}
+#kal .t{background:#000}
+</style>
+<script>
+(function(){
+const mmv=v=>Math.round(v*10)/10;
+function pasFit(){const w=$('#fitwarn');return !document.querySelector('.page.p3')&&!(w&&w.textContent)}
+function say(t){const m=$('#pasmsg');if(m)m.textContent=t}
+window.pasAuto=function(){
+ const c=C(),cur=+c.fs||10,was=allP;
+ c.paper='F4';c.ppA='';c.pa=c.pa;allP=true;
+ const fss=[12,11,10,9,8].filter(x=>x<=cur),js=['Longgar','Normal','Rapat'];
+ let ok=null;
+ outer:for(const f of fss)for(const j of js){c.fs=f;c.jarak=j;draw();if(pasFit()){ok=[f,j];break}}
+ if(!ok){c.fs=8;c.jarak='Rapat'}
+ allP=was;save();draw();
+ say(ok?`Sudah pas: kertas F4, huruf ${ok[0]} pt, jarak baris ${ok[1]}. Semua siswa muat dalam 2 halaman.`:'Isi rapor terlalu panjang untuk 2 halaman walau huruf 8 pt dan jarak Rapat. Kecilkan margin atau ruang aman bawah, atau singkat TP.');
+};
+window.pasCetak=function(){
+ const c=C();let ch=false;if(c.paper!='F4'){c.paper='F4';ch=true}
+ if(ch){save();draw()}
+ setTimeout(()=>window.print(),150);
+};
+window.pasGuide=function(on){C().guide=!!on;save();document.body.classList.toggle('guide',!!on)};
+window.pasPA=function(){
+ const v=parseFloat(($('#pasv')||{}).value);
+ if(isNaN(v)||v>=330){C().pa=null;save();draw();say('Area cetak penuh (330 mm). Tidak ada penggeseran.');return}
+ if(v<150){say('Angka terlalu kecil. Isi angka mm terakhir yang tercetak utuh, misalnya 297.');return}
+ C().pa=v;save();draw();say(`Tinggi area cetak printer diatur ${v} mm. Cetak ulang dan periksa jarak atas dan bawah.`);
+};
+window.pasUji=function(){
+ const c=C(),oldPa=c.pa,oldP=c.paper;c.paper='F4';c.pa=null;applyPaper();
+ let h='';
+ for(let y=0;y<=330;y+=5){const L=y%10==0?7:3.5;
+  h+=`<i class="t" style="left:0;top:${y}mm;width:${L}mm;height:.2mm"></i><i class="t" style="right:0;top:${y}mm;width:${L}mm;height:.2mm"></i>`;
+  if(y%10==0&&y>0&&y<330)h+=`<i style="left:8mm;top:${y-1.2}mm">${y}</i><i style="right:8mm;top:${y-1.2}mm">${y}</i>`}
+ for(let x=0;x<=210;x+=5){const L=x%10==0?7:3.5;
+  h+=`<i class="t" style="top:0;left:${x}mm;height:${L}mm;width:.2mm"></i><i class="t" style="bottom:0;left:${x}mm;height:${L}mm;width:.2mm"></i>`;
+  if(x%10==0&&x>0&&x<210)h+=`<i style="top:8mm;left:${x-1.5}mm">${x}</i><i style="bottom:8mm;left:${x-1.5}mm">${x}</i>`}
+ h+=`<i style="left:30mm;right:30mm;top:60mm;font-size:11pt;line-height:1.5"><b>LEMBAR UJI KERTAS F4 (210 x 330 mm)</b><br>1. Pastikan ukuran kertas di dialog cetak F4 / Folio / Legal, Skala 100%, Margin None, Header dan footer mati.<br>2. Ukur garis di bawah dengan penggaris. Harus tepat 100 mm. Jika tidak, skala cetak bukan 100%.<br>3. Lihat angka paling bawah di tepi kiri atau kanan yang tercetak utuh, lalu isikan di aplikasi (kolom Angka mm terakhir).<br>4. Jika angka di tepi kiri atau kanan terpotong, tambah margin kiri dan kanan.</i>
+ <i class="t" style="left:55mm;top:130mm;width:100mm;height:.6mm"></i><i style="left:55mm;top:132mm">|&lt;-- 100 mm --&gt;|</i>
+ <i style="left:0;top:0;width:210mm;height:330mm;border:.3mm solid #000"></i>`;
+ let k=$('#kal');if(!k){k=document.createElement('div');k.id='kal';document.body.appendChild(k)}
+ k.innerHTML=h;document.body.classList.add('kal');
+ const done=()=>{document.body.classList.remove('kal');c.paper=oldP;c.pa=oldPa;applyPaper();window.removeEventListener('afterprint',done)};
+ window.addEventListener('afterprint',done);
+ setTimeout(()=>window.print(),150);
+};
+const _c=V.cetak;
+V.cetak=function(){
+ const out=_c.call(V),r=document.documentElement.style;
+ r.setProperty('--safe',(C().safe==null?15:+C().safe)+'mm');
+ document.body.classList.toggle('guide',!!C().guide);
+ const p=`<div class="pasbox noprint"><h2>Cetak F4 pas</h2><p class="hint" style="margin:0">Tiga langkah supaya hasil cetak sama dengan tampilan di layar.</p>
+ <div class="row"><button class="btn" onclick="pasAuto()">1. Pas-kan otomatis ke F4</button><button class="btn s" onclick="pasUji()">2. Cetak lembar uji F4</button><div><label>Angka mm terakhir yang tercetak utuh</label><input id="pasv" type="number" min="150" max="330" style="width:110px" placeholder="mis. 297" value="${C().pa==null?'':C().pa}"></div><button class="btn s" onclick="pasPA()">Terapkan</button><button class="btn" onclick="pasCetak()">3. Cetak F4 sekarang</button><label style="display:flex;gap:6px;align-items:center;margin:0"><input type="checkbox" ${C().guide?'checked':''} onchange="pasGuide(this.checked)"> Garis bantu margin (merah) dan ruang aman (biru)</label></div>
+ <p id="pasmsg"></p>
+ <ol><li>Langkah 1 memilih huruf dan jarak baris terbesar yang masih muat dalam 2 halaman untuk semua siswa, tanpa menambah ukuran huruf di atas pilihan Anda.</li><li>Langkah 2 mencetak penggaris. Jika bagian bawah kertas tidak ikut tercetak, isi angka terakhir yang terbaca lalu tekan Terapkan.</li><li>Di dialog cetak: kertas F4, Folio, atau Legal, Margin None, Skala 100%, Header dan footer mati, Background graphics hidup.</li></ol></div>`;
+ return out.includes('<div class="scroll">')?out.replace('<div class="scroll">',p+'<div class="scroll">'):out+p;
+};
+})();
+</script>
+</body></html>
