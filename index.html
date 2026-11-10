@@ -759,6 +759,13 @@ window.__buildWord=build;
 .pin{display:flex;gap:8px;align-items:end}.pin>div{flex:1;min-width:0}.pin input{width:100%}.pin .btn{width:auto}
 label.pchk{display:flex!important;align-items:center;gap:8px;margin:14px 0 0;font-size:13px;color:var(--tx);cursor:pointer}
 label.pchk input{width:16px!important;height:16px;margin:0;flex:none}
+.cfg{display:grid!important;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px 14px;align-items:end;margin-top:0!important}
+.cfg>div{min-width:0}.cfg input,.cfg select{width:100%!important;min-width:0}
+.cfg .cfgh{grid-column:1/-1;margin:8px 0 0;padding-top:10px;border-top:1px solid var(--bd);font:600 12.5px Poppins,"Segoe UI",sans-serif;color:var(--ac)}
+.cfg .cfgh:first-child{margin-top:0;padding-top:0;border-top:0}
+.cfgb{grid-column:1/-1;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin-top:10px;padding-top:12px;border-top:1px solid var(--bd)}
+.cfgb .btn{width:100%;margin:0}
+details.cfgd{margin-top:12px}details.cfgd summary{cursor:pointer;font-size:13px}details.cfgd p{margin:8px 0 0}
 #pasmsg{margin:10px 0 0;font-size:13px;min-height:18px;color:var(--ac);font-weight:600}
 body.guide .page::before{content:"";position:absolute;left:var(--ml);right:var(--mr);top:var(--mt);bottom:var(--mb);border:1px dashed #d33;pointer-events:none}
 body.guide .page::after{content:"";position:absolute;left:0;right:0;bottom:calc(var(--mb) + var(--safe,15mm));border-top:1px dashed #27c;pointer-events:none}
@@ -824,7 +831,16 @@ window.pasUji=function(){
 };
 const _c=V.cetak;
 V.cetak=function(){
- const out=_c.call(V),r=document.documentElement.style;
+ let out=_c.call(V);const r=document.documentElement.style;
+ out=out.replace('<div class="card noprint"><div class="row">','<div class="card noprint"><div class="row cfg"><h4 class="cfgh">Siswa, kertas, dan huruf</h4>')
+  .replace('<div><label>Margin kiri (mm)</label>','<h4 class="cfgh">Margin (mm)</h4><div><label>Margin kiri (mm)</label>')
+  .replace('<div><label>Tinggi area cetak printer (mm)</label>','<h4 class="cfgh">Penyesuaian printer (mm)</h4><div><label>Tinggi area cetak printer (mm)</label>')
+  .replace('<div><label>Jarak baris</label>','<h4 class="cfgh">Tata letak</h4><div><label>Jarak baris</label>')
+  .replace('<button class="btn" onclick="window.print()">Cetak rapor ini</button>','<div class="cfgb"><button class="btn" onclick="window.print()">Cetak rapor ini</button>')
+  .replace('Unduh Word (semua siswa)</button></div>','Unduh Word (semua siswa)</button></div></div>')
+  .replace('<p class="hint">Ukuran kertas:','<details class="hint cfgd"><summary>Petunjuk ukuran kertas dan cetak</summary><p class="hint">Ukuran kertas:')
+  .replace('</p><p class="hint" id="fitwarn"','</p></details><p class="hint" id="fitwarn"');
+ 
  r.setProperty('--safe',(C().safe==null?15:+C().safe)+'mm');
  document.body.classList.toggle('guide',!!C().guide);
  const p=`<div class="pasbox noprint"><h2>Cetak F4 pas</h2><p class="hint" style="margin:0">Ikuti urutan 1 sampai 3 agar hasil cetak sama dengan tampilan di layar.</p>
