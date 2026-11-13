@@ -1,0 +1,33 @@
+{
+ "upd": 1794576653424,
+ "u": [
+  {
+   "id": "u0",
+   "nama": "Administrator",
+   "user": "admin",
+   "role": "admin",
+   "salt": "34ff76b34ef6acdc",
+   "h": "s:141a724766ce6dbfe442d64cdc78dbcfd1cf8410463485fb55b59448f50bf3fb"
+  },
+  {
+   "id": "umwf0jm2nb048",
+   "nama": "Zuraeda, M.Pd",
+   "user": "eda",
+   "role": "guru",
+   "kelas": 6,
+   "rombel": "A",
+   "salt": "602ae3a3a2fa2e7a",
+   "h": "s:06490a3f696901235e829327293718466271aef14f155c9c4fac53445797b89d"
+  },
+  {
+   "id": "umwf0kmyyb553",
+   "nama": "Haiburrahman, S.Pd",
+   "user": "habib",
+   "role": "guru",
+   "kelas": 6,
+   "rombel": "A",
+   "salt": "cb46b8a4c9b2f530",
+   "h": "s:178242ad7e7f0456bd0a0439a8476eb4f7bf3295552f0a5a40104617fb29e208"
+  }
+ ]
+}
