@@ -1,5 +1,5 @@
 {
- "upd": 1794576653424,
+ "upd": 1794581032271,
  "u": [
   {
    "id": "u0",
@@ -28,6 +28,16 @@
    "rombel": "A",
    "salt": "cb46b8a4c9b2f530",
    "h": "s:178242ad7e7f0456bd0a0439a8476eb4f7bf3295552f0a5a40104617fb29e208"
+  },
+  {
+   "id": "umwf37mmne4a2",
+   "nama": "SAFITRI, S.Pd",
+   "user": "fitri",
+   "role": "guru",
+   "kelas": 3,
+   "rombel": "A",
+   "salt": "9fb0f9983c31d14b",
+   "h": "s:1dcdc2b82fbbe2060e1f9f78c8255df365822ad990036bdf8140098e658eb707"
   }
  ]
 }
