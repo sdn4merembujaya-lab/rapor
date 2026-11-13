@@ -6,6 +6,13 @@
 <title>e-Rapor SD - Aplikasi Rapor Kurikulum Merdeka</title>
 <meta name="description" content="Aplikasi rapor SD Kurikulum Merdeka: input nilai, capaian otomatis, legger, cetak A4/F4. Berjalan di peramban, data tersimpan di perangkat."/>
 <meta name="theme-color" content="#0d0a3d"/>
+<link rel="manifest" href="manifest.json"/>
+<link rel="icon" type="image/png" href="icon-192.png"/>
+<link rel="apple-touch-icon" href="icon-192.png"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-title" content="e-Rapor SD"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta property="og:title" content="e-Rapor SD"/><meta property="og:description" content="Aplikasi rapor SD Kurikulum Merdeka yang berjalan di peramban."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2314106b'/%3E%3Ctext x='32' y='45' font-size='38' font-family='Georgia,serif' font-weight='700' text-anchor='middle' fill='%23a78bfa'%3Ee%3C/text%3E%3C/svg%3E"/>
@@ -473,7 +480,7 @@ lain(){const s=curSis();if(!s)return bar()+stuPick();const d=D(s);return bar()+s
 <div class="card"><h2>7 Kebiasaan anak Indonesia hebat</h2><div class="g">${KEB.map((k,i)=>`<div><label>${k}</label><select onchange="D(curSis()).k[${i}]=this.value;save()">${KAT.map(x=>`<option ${x==d.k[i]?'selected':''}>${x}</option>`).join('')}</select></div>`).join('')}</div></div>
 <div class="card"><h2>Catatan wali kelas</h2><textarea onchange="D(curSis()).saran=this.value;save()">${esc(d.saran)}</textarea></div>`},
 cetak(){const l=kelasSiswa(),s=curSis();return bar()+`<div class="card noprint"><div class="row"><div><label>Siswa</label><select id="ps" onchange="sel=this.value;draw()">${l.map(x=>`<option value="${x.id}" ${s&&x.id==s.id?'selected':''}>${esc(x.nama)}</option>`).join('')}</select></div><div><label>Ukuran kertas</label><select onchange="C().paper=this.value;save();draw()">${[['A4','A4 (210 x 297)'],['F4','F4 (210 x 330)'],['FO','Folio / 8.5 x 13 in (216 x 330)'],['LG','Legal (216 x 356)']].map(x=>`<option value="${x[0]}" ${(C().paper||'A4')==x[0]?'selected':''}>${x[1]}</option>`).join('')}</select></div><div><label>Jenis huruf</label><select onchange="C().font=this.value;save();draw()">${sel2(Object.keys(FONTS),C().font||'Calibri')}</select></div><div><label>Ukuran huruf (pt)</label><select onchange="C().fs=+this.value;save();draw()">${sel2(['8','9','10','11','12'],String(C().fs||10))}</select></div><div><label>Maks. mapel di halaman 1</label><select onchange="C().ppA=this.value=='Otomatis'?'':+this.value;save();draw()">${['Otomatis'].concat(mapelList().map((x,i)=>i+1)).map(x=>`<option ${(C().ppA?+C().ppA:'Otomatis')==x?'selected':''}>${x}</option>`).join('')}</select></div><div><label>Margin kiri (mm)</label><input type="number" min="0" max="60" style="width:90px" value="${C().mL==null?15:C().mL}" onchange="C().mL=+this.value;save();draw()"></div><div><label>Margin kanan (mm)</label><input type="number" min="0" max="60" style="width:90px" value="${C().mR==null?15:C().mR}" onchange="C().mR=+this.value;save();draw()"></div><div><label>Margin atas (mm)</label><input type="number" min="0" max="60" style="width:90px" value="${C().mT==null?12:C().mT}" onchange="C().mT=+this.value;save();draw()"></div><div><label>Margin bawah (mm)</label><input type="number" min="0" max="60" style="width:90px" value="${C().mB==null?18:C().mB}" onchange="C().mB=+this.value;save();draw()"></div><div><label>Tinggi area cetak printer (mm)</label><input type="number" min="150" max="330" style="width:90px" placeholder="otomatis" value="${C().pa==null?'':C().pa}" onchange="C().pa=this.value===''?null:+this.value;save();draw()"></div><div><label>Jarak footer dari bawah (mm)</label><input type="number" min="0" max="60" style="width:90px" placeholder="otomatis" value="${C().fb==null?'':C().fb}" onchange="C().fb=this.value===''?null:+this.value;save();draw()"></div><div><label>Ruang aman bawah (mm)</label><input type="number" min="0" max="60" style="width:90px" value="${C().safe==null?15:C().safe}" onchange="C().safe=+this.value;save();draw()"></div><div><label>Jarak baris</label><select onchange="C().jarak=this.value;save();draw()">${sel2(['Rapat','Normal','Longgar'],C().jarak||'Rapat')}</select></div><div><label>Halaman identitas di depan rapor</label><select onchange="C().withId=this.value=='Ya';save();draw()">${sel2(['Tidak','Ya'],C().withId?'Ya':'Tidak')}</select></div><button class="btn" onclick="window.print()">Cetak rapor ini</button><button class="btn s" onclick="allP=true;draw();setTimeout(()=>{window.print();allP=false;draw()},300)">Cetak semua siswa kelas ini</button><button class="btn s" onclick="unduhPDF(this,false)">Unduh PDF (rapor ini)</button><button class="btn s" onclick="unduhPDF(this,true)">Unduh PDF (semua siswa)</button><button class="btn s" onclick="unduhWord(false)">Unduh Word (rapor ini)</button><button class="btn s" onclick="unduhWord(true)">Unduh Word (semua siswa)</button></div><p class="hint">Ukuran kertas: A4 = 210 x 297 mm, F4 = 210 x 330 mm (di sebagian printer disebut Folio, 8,5 x 13 in). Kalau hasil cetak terpotong, penyebab paling sering adalah ukuran kertas di dialog cetak berbeda dengan pilihan di sini (misalnya aplikasi F4 tetapi dialog A4). Pilih ukuran yang sama; bila F4 tidak ada di daftar, pilih Legal atau Folio. Atur Margins = None, Scale = 100, dan matikan Headers and footers. Alternatifnya, tombol Unduh PDF membuat PDF dengan ukuran kertas yang pas; cetak PDF itu dengan Scale = 100% atau Actual size. Margin bawah juga menjadi tempat footer halaman. Kalau printer hanya mencetak sebagian kertas F4 (misalnya 297 mm) sehingga bawahnya kosong, isi <b>Tinggi area cetak printer</b> dengan angka itu: isi rapor digeser turun agar jarak atas dan bawah di kertas sama.</p><p class="hint" id="fitwarn" style="color:var(--wr)"></p></div>`+(s?`<div class="scroll">${(allP?l:[s]).map(rapor).join('')}</div>`:'<div class="card">Belum ada siswa.</div>')},
-cadang(){return `<div class="card"><h2>Backup dan restore</h2><p class="hint">Backup menyimpan seluruh data ke satu file di perangkat ini. Restore memulihkan data dari file backup tersebut.</p><div class="row"><button class="btn" onclick="doBackup()">Backup</button><button class="btn s" onclick="$('#rf').click()">Restore</button><input id="rf" type="file" accept=".json,application/json" style="display:none" onchange="doRestore(this)"><button class="btn d" onclick="if(confirm('Hapus semua data di perangkat ini?')){db=def();save();draw()}">Hapus semua data</button></div></div>`}};
+cadang(){return `<div class="card"><h2>Backup dan restore</h2><p class="hint">Backup menyimpan seluruh data ke satu file di perangkat ini. Restore memulihkan data dari file backup tersebut.</p><div class="row"><button class="btn" onclick="doBackup()">Backup</button><button class="btn s" onclick="$('#rf').click()">Restore</button><input id="rf" type="file" accept=".json,.txt,application/json,text/plain" style="display:none" onchange="doRestore(this)"><button class="btn d" onclick="if(confirm('Hapus semua data di perangkat ini?')){db=def();save();draw()}">Hapus semua data</button></div></div>`}};
 let allP=false,mi=0;
 function autoFill(m,n){const l=tpList(m),k=C().kktp||75,sc=[],w=C().bobot==null?30:C().bobot;l.forEach((t,j)=>{const x=parseFloat((n.t||[])[j]);if(!isNaN(x))sc.push([t,x])});const s=parseFloat(n.s),a=sc.length?sc.reduce((p,q)=>p+q[1],0)/sc.length:NaN;if(!n.ov&&!(isNaN(s)&&isNaN(a)))n.v=isNaN(s)?Math.round(a):isNaN(a)?Math.round(s):Math.round(a*(100-w)/100+s*w/100);if(!n.man&&sc.length){n.a=sc.filter(x=>x[1]>=k).map(x=>x[0]).join('; ');n.b=sc.filter(x=>x[1]<k).map(x=>x[0]).join('; ')}}
 function setG(id,j,v){const s=db.siswa.find(x=>x.id==id),m=mapelList()[mi],d=D(s),n=d.n[m]=d.n[m]||{};if(j<0)n.s=v;else{n.t=n.t||[];n.t[j]=v}autoFill(m,n);save();$('#nv'+id).textContent=n.v==null?'':n.v;$('#da'+id).value=n.a||'';$('#db'+id).value=n.b||''}
@@ -1259,5 +1266,92 @@ window.isiTemplateERapor=async function(inp){
 
 </script>
 
+
+<script>
+/* ---------- Tambahan HP: pasang sebagai aplikasi, pengingat cadangan, bagikan cadangan ---------- */
+(function(){
+var LB='rapor_sd_lastbak',LE='rapor_sd_lastedit',TD='rapor_sd_tunda',TP='rapor_sd_tutup_pasang',HARI=864e5;
+function gi(k){try{return +localStorage.getItem(k)||0}catch(e){return 0}}
+function si(k,v){try{localStorage.setItem(k,String(v))}catch(e){}}
+var st=document.createElement('style');
+st.textContent='.xtra{border-left:4px solid var(--am,#e9b44c);margin-bottom:14px}.xtra h2{margin:0 0 6px;font-size:16px}.xtra p{margin:0 0 8px}.xtra .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}.xtra .btn{flex:1 1 150px;min-height:44px}';
+document.head.appendChild(st);
+
+/* catat waktu terakhir data diubah */
+var _save=save;save=function(){var r=_save.apply(this,arguments);si(LE,Date.now());return r};
+/* catat waktu terakhir cadangan diunduh */
+var _bk=doBackup;doBackup=function(){var r=_bk.apply(this,arguments);si(LB,Date.now());extra();return r};
+
+var standalone=function(){return (window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true};
+var ios=/iphone|ipad|ipod/i.test(navigator.userAgent);
+var dip=null;
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();dip=e;extra()});
+window.addEventListener('appinstalled',function(){dip=null;extra()});
+
+window.pasangApp=function(){
+  if(dip){dip.prompt();var p=dip;dip=null;(p.userChoice||Promise.resolve()).then(extra,extra);return}
+  alert(ios?'Di Safari, ketuk tombol Bagikan, lalu pilih "Tambah ke Layar Utama".':'Di Chrome, buka menu titik tiga di pojok kanan atas, lalu pilih "Instal aplikasi" atau "Tambahkan ke layar utama".');
+};
+window.tutupPasang=function(){si(TP,Date.now());extra()};
+window.tundaCadang=function(){si(TD,Date.now());extra()};
+
+window.shareBackup=async function(){
+  var d=new Date(),z=function(n){return String(n).padStart(2,'0')};
+  var tgl=d.getFullYear()+z(d.getMonth()+1)+z(d.getDate());
+  var nama='backup-rapor-sd-'+tgl+'.json',isi=JSON.stringify(db);
+  try{
+    if(navigator.share&&window.File&&navigator.canShare){
+      var calon=[new File([isi],nama,{type:'application/json'}),new File([isi],nama+'.txt',{type:'text/plain'})];
+      for(var i=0;i<calon.length;i++){
+        if(navigator.canShare({files:[calon[i]]})){
+          await navigator.share({files:[calon[i]],title:'Cadangan e-Rapor SD',text:'Cadangan data e-Rapor SD tanggal '+tgl});
+          si(LB,Date.now());extra();return;
+        }
+      }
+    }
+  }catch(e){if(e&&e.name==='AbortError')return}
+  /* cadangan: unduh berkas, lalu guru mengirimnya sendiri */
+  doBackup();
+  alert('Peramban ini tidak bisa langsung membuka WhatsApp. Berkas cadangan sudah diunduh. Buka WhatsApp, lalu kirim berkas itu ke nomor sendiri atau grup guru.');
+};
+
+function terakhir(){var lb=gi(LB);return lb?'Terakhir dicadangkan: '+new Date(lb).toLocaleString('id-ID',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})+'.':'Belum pernah dicadangkan di perangkat ini.'}
+
+function remindHTML(){
+  if(!db||!db.siswa||!db.siswa.length)return'';
+  var now=Date.now(),lb=gi(LB),le=gi(LE);
+  if(lb&&now-lb<3*HARI)return'';
+  if(lb&&le<=lb)return'';
+  if(now-gi(TD)<HARI)return'';
+  var msg=lb?'Sudah '+Math.floor((now-lb)/HARI)+' hari data belum dicadangkan.':'Data nilai belum pernah dicadangkan.';
+  return '<div class="card xtra"><h2>Jangan lupa cadangkan data</h2><p class="hint">'+msg+' Data hanya tersimpan di HP ini. Ketuk tombol di bawah, lalu kirim ke WhatsApp sendiri atau grup guru.</p><div class="row"><button class="btn" onclick="shareBackup()">Kirim cadangan</button><button class="btn s" onclick="tundaCadang()">Nanti saja</button></div></div>';
+}
+function installHTML(home){
+  if(standalone())return'';
+  if(home&&now()-gi(TP)<14*HARI)return'';
+  var tombol=(dip||!ios)?'<button class="btn" onclick="pasangApp()">Pasang aplikasi</button>':'<button class="btn" onclick="pasangApp()">Cara memasang</button>';
+  return '<div class="card xtra"><h2>Pasang di layar utama HP</h2><p class="hint">Dengan dipasang, e-Rapor SD muncul seperti aplikasi biasa, terbuka layar penuh, dan guru tidak perlu mengetik alamat lagi.</p><div class="row">'+tombol+(home?'<button class="btn s" onclick="tutupPasang()">Nanti saja</button>':'')+'</div></div>';
+}
+function now(){return Date.now()}
+function cadangHTML(){
+  return '<div class="card xtra"><h2>Kirim cadangan lewat HP</h2><p class="hint">Satu ketukan membuka WhatsApp atau aplikasi lain di HP untuk mengirim berkas cadangan. Kirim ke nomor sendiri atau grup guru, supaya data aman kalau HP rusak atau hilang. '+terakhir()+'</p><div class="row"><button class="btn" onclick="shareBackup()">Bagikan cadangan</button></div></div>'+installHTML(false);
+}
+function extra(){
+  if(document.body.classList.contains('locked'))return;
+  var app=document.querySelector('#app');if(!app)return;
+  app.querySelectorAll('.xtra').forEach(function(n){n.remove()});
+  var h='';
+  if(tab==='home')h=remindHTML()+installHTML(true);
+  else if(tab==='cadang')h=cadangHTML();
+  if(h)app.insertAdjacentHTML('afterbegin',h);
+}
+var _draw=draw;draw=function(){var r=_draw.apply(this,arguments);try{extra()}catch(e){}return r};
+if(!document.body.classList.contains('locked')&&document.querySelector('#side')&&document.querySelector('#side').innerHTML)setTimeout(function(){try{extra()}catch(e){}},50);
+
+if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol)){
+  window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})});
+}
+})();
+</script>
 </body>
 </html>
