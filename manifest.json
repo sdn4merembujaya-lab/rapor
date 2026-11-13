@@ -1,0 +1,17 @@
+{
+  "name": "e-Rapor SD",
+  "short_name": "e-Rapor SD",
+  "description": "Aplikasi rapor SD Kurikulum Merdeka. Data tersimpan di perangkat.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0d0a3d",
+  "theme_color": "#0d0a3d",
+  "lang": "id",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
